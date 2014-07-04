@@ -37,6 +37,7 @@ public class DispatchServlet extends BaseServlet {
 		pages.put("home", "Home");
 		pages.put("about", "About Us");
 		pages.put("contact", "Contact Us");
+		pages.put("page404", "Page 404");
 		
 		PrintWriter print = response.getWriter();
 		
@@ -47,8 +48,10 @@ public class DispatchServlet extends BaseServlet {
 		
 		String bodyPage = this.getPage(request);
 		ST body = templates.getInstanceOf(bodyPage);
+		body.add("contextPath", contextPath);
 		
-		page.add(bodyPage, "active");
+		if (!bodyPage.equalsIgnoreCase("page404"))
+			page.add(bodyPage, "active");
 		page.add("contextPath", contextPath);
 		page.add("title", pages.get(bodyPage));
 		page.add("body", body.render());

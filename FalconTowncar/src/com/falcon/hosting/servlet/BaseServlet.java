@@ -43,6 +43,4 @@ public class BaseServlet extends HttpServlet {
 		HtmlCompressor compresor = new HtmlCompressor();
 		return compresor.compress(content);
 	}
-	
-	
 }
