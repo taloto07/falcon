@@ -63,6 +63,9 @@ template(contextPath, title, body, home, about, contact)::="
               </ul>
             </li>
           </ul>
+          <ul class='nav navbar-nav navbar-right'>
+          	<li><a href='#'>Log In</a></li>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -71,7 +74,12 @@ template(contextPath, title, body, home, about, contact)::="
 
     <div class='footer'>
       <div class='container'>
-        <p class='text-muted'>Place sticky footer content here.</p>
+      	<div class='col-xs-4'>
+        	<p class='text-muted'>&copy; Copyright <a href='$contextPath$home.html'>Falcon Towncar Transportation</a>.</p>
+        </div>
+        <div class='col-xs-4 col-xs-offset-4'>
+        	<p class='text-muted'>All Right Reserved | <a href='$contextPath$termsandconditions.html'>Terms & Conditions</p>
+        </div>
       </div>
     </div>
 

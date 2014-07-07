@@ -38,6 +38,7 @@ public class DispatchServlet extends BaseServlet {
 		pages.put("about", "About Us");
 		pages.put("contact", "Contact Us");
 		pages.put("page404", "Page 404");
+		pages.put("termsandconditions", "Terms & Conditions");
 		
 		PrintWriter print = response.getWriter();
 		
@@ -50,7 +51,7 @@ public class DispatchServlet extends BaseServlet {
 		ST body = templates.getInstanceOf(bodyPage);
 		body.add("contextPath", contextPath);
 		
-		if (!bodyPage.equalsIgnoreCase("page404"))
+		if (!bodyPage.equalsIgnoreCase("page404") && !bodyPage.equalsIgnoreCase("termsandconditions"))
 			page.add(bodyPage, "active");
 		page.add("contextPath", contextPath);
 		page.add("title", pages.get(bodyPage));
