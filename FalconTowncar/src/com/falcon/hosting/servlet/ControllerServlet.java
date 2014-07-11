@@ -2,17 +2,10 @@ package com.falcon.hosting.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.stringtemplate.v4.ST;
-import org.stringtemplate.v4.STGroup;
-
-import com.falcon.hosting.doa.User;
 
 public class ControllerServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;

@@ -15,7 +15,6 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
 import com.falcon.hosting.doa.User;
-import com.falcon.hosting.doa.UsersGroup;
 
 public class ChamServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
