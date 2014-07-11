@@ -20,6 +20,11 @@ public class DispatchServlet extends BaseServlet {
     
     public DispatchServlet() {
         super();
+        pages.put("home", "Home");
+		pages.put("about", "About Us");
+		pages.put("contact", "Contact Us");
+		pages.put("page404", "Page 404");
+		pages.put("termsandconditions", "Terms & Conditions");
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,12 +38,6 @@ public class DispatchServlet extends BaseServlet {
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		
-		pages.put("home", "Home");
-		pages.put("about", "About Us");
-		pages.put("contact", "Contact Us");
-		pages.put("page404", "Page 404");
-		pages.put("termsandconditions", "Terms & Conditions");
 		
 		PrintWriter print = response.getWriter();
 		
