@@ -6,6 +6,5 @@ view(name, year)::="
 	Banana. test good alafel
 	<br/> Alvaro added this
 	<br/> Taloto07 added this line
->>>>>>> branch 'master' of https://github.com/taloto07/falcon.git
 </div>
 ";
