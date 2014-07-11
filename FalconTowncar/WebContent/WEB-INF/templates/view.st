@@ -6,6 +6,6 @@ view(name, year)::="
 	Banana. test good alafel
 	<br/> Alvaro added this
 	<br/> Taloto07 added this line
-	signup line
+	add a new line by hongbin
 </div>
 ";
