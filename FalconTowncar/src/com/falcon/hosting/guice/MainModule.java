@@ -3,6 +3,7 @@ package com.falcon.hosting.guice;
 import com.falcon.hosting.servlet.ChamServlet;
 import com.falcon.hosting.servlet.ControllerServlet;
 import com.falcon.hosting.servlet.DispatchServlet;
+import com.falcon.hosting.servlet.SignupServlet;
 import com.falcon.hosting.servlet.TestServlet;
 import com.falcon.hosting.servlet.ViewServlet;
 import com.google.inject.Singleton;
@@ -21,6 +22,7 @@ public class MainModule extends ServletModule{
 		bind(ChamServlet.class).in(Singleton.class);
 		bind(ControllerServlet.class).in(Singleton.class);
 		bind(ViewServlet.class).in(Singleton.class);
+		bind(SignupServlet.class).in(Singleton.class);
 		
 		serve("/").with(DispatchServlet.class);
 		serve("*.html").with(DispatchServlet.class);
@@ -28,5 +30,6 @@ public class MainModule extends ServletModule{
 		serve("/cham").with(ChamServlet.class);
 		serve("/controller").with(ControllerServlet.class);
 		serve("/view").with(ViewServlet.class);
+		serve("/signup").with(SignupServlet.class);
 	}
 }
