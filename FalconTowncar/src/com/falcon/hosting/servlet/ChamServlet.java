@@ -31,7 +31,7 @@ public class ChamServlet extends BaseServlet {
 		File folder = new File(getServletContext().getRealPath("/img/"));
 		File[] files = folder.listFiles();
 		for (File file: files){
-			if (file.isFile())
+			if (file.isFile() && file.getName().contains(".jpg"));
 				images.add(file.getName());
 		}
 		

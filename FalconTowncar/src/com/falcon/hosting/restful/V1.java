@@ -1,17 +1,22 @@
 package com.falcon.hosting.restful;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.falcon.hosting.doa.User;
 import com.falcon.hosting.guice.InjectorGuice;
+import com.falcon.hosting.restful.helper.UserFromJson;
 import com.falcon.hosting.service.FalconService;
 import com.google.gson.Gson;
 
@@ -52,5 +57,27 @@ public class V1 {
 		Gson gson = new Gson();
 		
 		return gson.toJson(userMap);
+	}
+	
+	@Path("registerpost")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response registerpost(String data) throws IOException{
+		
+		UserFromJson userFromJson = new Gson().fromJson(data, UserFromJson.class);
+		System.out.println(userFromJson);
+		
+		if (userFromJson.isNull())
+			return Response.status(406).entity("Invalidated").build();
+		
+		User user = new User();
+		userFromJson.copyToUser(user);
+		
+		if(!service.addUser(user))
+			return Response.status(400).entity("User existed.").build();
+		
+		return Response.status(200).entity("User created.").build();
+
 	}
 }
