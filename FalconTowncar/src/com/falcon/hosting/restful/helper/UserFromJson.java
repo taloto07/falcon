@@ -7,7 +7,16 @@ public class UserFromJson {
 	private String lastName;
 	private String email;
 	private String password;
+	private String image;
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -61,6 +70,7 @@ public class UserFromJson {
 		result = "First Name: " + firstName + "\n";
 		result += "Last Name: " + lastName + "\n";
 		result += "Email: " + email + "\n";
+		result += "Image: " + image + "\n";
 		
 		return result;
 	}

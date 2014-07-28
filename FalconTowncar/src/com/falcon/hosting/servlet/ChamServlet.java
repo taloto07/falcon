@@ -31,9 +31,11 @@ public class ChamServlet extends BaseServlet {
 		File folder = new File(getServletContext().getRealPath("/img/"));
 		File[] files = folder.listFiles();
 		for (File file: files){
-			if (file.isFile() && file.getName().contains(".jpg"));
+			if (file.isFile() && file.getName().contains("jpg"))
 				images.add(file.getName());
 		}
+		
+		System.out.println(images);
 		
 		String contextPath = this.getContextPath();
 		
@@ -43,7 +45,7 @@ public class ChamServlet extends BaseServlet {
 		ST page = templates.getInstanceOf("template");
 		ST body = templates.getInstanceOf("cham");
 		
-//		int indexParameter = Integer.parseInt(request.getParameter("index"));
+		//int indexParameter = Integer.parseInt(request.getParameter("index"));
 //		String file = request.getParameter("file");
 //		System.out.println("indexParameter: " + indexParameter);
 //		System.out.println("file: " + file);
@@ -59,7 +61,7 @@ public class ChamServlet extends BaseServlet {
 		body.add("user", u);
 		body.add("users", users);
 		body.add("contextPath", contextPath);
-		body.add("image", images.get(imageIndex));
+		body.add("image", "myImage.jpeg"); // change to myImage.jpg
 		page.add("contextPath", contextPath);
 		page.add("title", "Cham Image");
 		page.add("body", body.render());

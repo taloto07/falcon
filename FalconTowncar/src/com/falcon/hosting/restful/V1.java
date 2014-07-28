@@ -1,6 +1,10 @@
 package com.falcon.hosting.restful;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +18,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.internal.util.Base64;
+
+import sun.misc.BASE64Decoder;
+
 import com.falcon.hosting.doa.User;
 import com.falcon.hosting.guice.InjectorGuice;
+import com.falcon.hosting.restful.helper.UploadImageHelper;
 import com.falcon.hosting.restful.helper.UserFromJson;
 import com.falcon.hosting.service.FalconService;
 import com.google.gson.Gson;
+
 
 @Path("v1")
 public class V1 {
@@ -66,7 +76,16 @@ public class V1 {
 	public Response registerpost(String data) throws IOException{
 		
 		UserFromJson userFromJson = new Gson().fromJson(data, UserFromJson.class);
+		
 		System.out.println(userFromJson);
+		System.out.println(System.getProperty("user.dir"));
+		
+		byte[] bData = new BASE64Decoder().decodeBuffer(userFromJson.getImage());
+		File myImage = new File("../eclipseApps/FalconTowncar/img/myImage.jpeg");
+		FileOutputStream fos = new FileOutputStream(myImage);
+		fos.write(bData);
+		fos.flush();
+		fos.close();
 		
 		if (userFromJson.isNull())
 			return Response.status(406).entity("Invalidated").build();
@@ -79,5 +98,23 @@ public class V1 {
 		
 		return Response.status(200).entity("User created.").build();
 
+	}
+	
+	@Path("uploadimage")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response uploadImage(String data) throws IOException{
+		UploadImageHelper image = new Gson().fromJson(data, UploadImageHelper.class);
+		System.out.println(image.getImage());
+		
+		byte[] bData = new BASE64Decoder().decodeBuffer(image.getImage());
+		File myImage = new File("../eclipseApps/FalconTowncar/img/myImage.jpeg");
+		FileOutputStream fos = new FileOutputStream(myImage);
+		fos.write(bData);
+		fos.flush();
+		fos.close();
+		
+		return Response.status(200).entity("Successfully Uploaded.").build();
 	}
 }
