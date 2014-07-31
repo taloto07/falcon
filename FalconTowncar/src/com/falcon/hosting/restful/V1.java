@@ -16,8 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 
 import sun.misc.BASE64Decoder;
 
@@ -123,19 +123,19 @@ public class V1 {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String userLogin(String data){
 		
-		JSONObject json_obj = null;
-		String str_userId;
-		String str_password;
-		try{
-			json_obj = new JSONObject(data);
-			str_userId = json_obj.getString("userid");
-			str_userId = json_obj.getString("password");
-			
-			//check in database see if match: match return OK, else return FAILED
-			
-		} catch (JSONException e){
-			
-		}
+//		JSONObject json_obj = null;
+//		String str_userId;
+//		String str_password;
+//		try{
+//			json_obj = new JSONObject(data);
+//			str_userId = json_obj.getString("userid");
+//			str_userId = json_obj.getString("password");
+//			
+//			//check in database see if match: match return OK, else return FAILED
+//			
+//		} catch (JSONException e){
+//			
+//		}
 		return "OK";
 	}
 	
@@ -145,20 +145,23 @@ public class V1 {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String userRegister(String data){
 		
-		JSONObject json_obj = null;
+//		JSONObject json_obj = null;
+//		
+//		String str_userId;
+//		String str_password;
+//		try{
+//			json_obj = new JSONObject(data);
+//			str_userId = json_obj.getString("userid");
+//			str_userId = json_obj.getString("password");
+//			
+//			//check in database see if match: match return OK, else return FAILED
+//			
+//		} catch (JSONException e){
+//			
+//		}
 		
-		String str_userId;
-		String str_password;
-		try{
-			json_obj = new JSONObject(data);
-			str_userId = json_obj.getString("userid");
-			str_userId = json_obj.getString("password");
-			
-			//check in database see if match: match return OK, else return FAILED
-			
-		} catch (JSONException e){
-			
-		}
+		
+		
 		return "OK";
 	}
 
