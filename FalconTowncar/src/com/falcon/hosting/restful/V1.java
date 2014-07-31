@@ -1,10 +1,8 @@
 package com.falcon.hosting.restful;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.internal.util.Base64;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import sun.misc.BASE64Decoder;
 
@@ -117,4 +116,50 @@ public class V1 {
 		
 		return Response.status(200).entity("Successfully Uploaded.").build();
 	}
+	
+	@Path("userLogin")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String userLogin(String data){
+		
+		JSONObject json_obj = null;
+		String str_userId;
+		String str_password;
+		try{
+			json_obj = new JSONObject(data);
+			str_userId = json_obj.getString("userid");
+			str_userId = json_obj.getString("password");
+			
+			//check in database see if match: match return OK, else return FAILED
+			
+		} catch (JSONException e){
+			
+		}
+		return "OK";
+	}
+	
+	@Path("userRegister")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String userRegister(String data){
+		
+		JSONObject json_obj = null;
+		
+		String str_userId;
+		String str_password;
+		try{
+			json_obj = new JSONObject(data);
+			str_userId = json_obj.getString("userid");
+			str_userId = json_obj.getString("password");
+			
+			//check in database see if match: match return OK, else return FAILED
+			
+		} catch (JSONException e){
+			
+		}
+		return "OK";
+	}
+
 }
