@@ -25,10 +25,9 @@ public class Vehicle implements Serializable {
 
 	private int year;
 
-	//bi-directional many-to-one association to Driver
-	@ManyToOne
-	@JoinColumn(name="drivers_id")
-	private Driver driver;
+	//bi-directional one-to-one association to Driver
+	@OneToOne(mappedBy="currentVehicle")
+	private Driver driver1;
 
 	//bi-directional many-to-one association to Make
 	@ManyToOne
@@ -39,6 +38,11 @@ public class Vehicle implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="models_id")
 	private Model model;
+
+	//bi-directional many-to-one association to Driver
+	@ManyToOne
+	@JoinColumn(name="drivers_id")
+	private Driver driver2;
 
 	public Vehicle() {
 	}
@@ -75,12 +79,12 @@ public class Vehicle implements Serializable {
 		this.year = year;
 	}
 
-	public Driver getDriver() {
-		return this.driver;
+	public Driver getDriver1() {
+		return this.driver1;
 	}
 
-	public void setDriver(Driver driver) {
-		this.driver = driver;
+	public void setDriver1(Driver driver1) {
+		this.driver1 = driver1;
 	}
 
 	public Make getMake() {
@@ -97,6 +101,14 @@ public class Vehicle implements Serializable {
 
 	public void setModel(Model model) {
 		this.model = model;
+	}
+
+	public Driver getDriver2() {
+		return this.driver2;
+	}
+
+	public void setDriver2(Driver driver2) {
+		this.driver2 = driver2;
 	}
 
 }

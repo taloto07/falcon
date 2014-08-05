@@ -37,6 +37,10 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Comment> comments;
 
+	//bi-directional one-to-one association to Customer
+	@OneToOne(mappedBy="user")
+	private Customer customer;
+
 	//bi-directional one-to-one association to Driver
 	@OneToOne(mappedBy="user")
 	private Driver driver;
@@ -53,10 +57,6 @@ public class User implements Serializable {
 			}
 		)
 	private List<Group> groups;
-
-	//bi-directional one-to-one association to Customer
-	@OneToOne(mappedBy="user")
-	private Customer customer;
 
 	public User() {
 	}
@@ -131,6 +131,14 @@ public class User implements Serializable {
 		return comment;
 	}
 
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public Driver getDriver() {
 		return this.driver;
 	}
@@ -145,14 +153,6 @@ public class User implements Serializable {
 
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
-	}
-
-	public Customer getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 
 }

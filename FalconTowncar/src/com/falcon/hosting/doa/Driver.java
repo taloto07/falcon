@@ -44,6 +44,11 @@ public class Driver implements Serializable {
 	@JoinColumn(name="users_id")
 	private User user;
 
+	//bi-directional one-to-one association to Vehicle
+	@OneToOne
+	@JoinColumn(name="current_vehicle")
+	private Vehicle currentVehicle;
+
 	//bi-directional many-to-one association to Job
 	@OneToMany(mappedBy="driver")
 	private List<Job> jobs;
@@ -53,7 +58,7 @@ public class Driver implements Serializable {
 	private List<Licens> licenses;
 
 	//bi-directional many-to-one association to Vehicle
-	@OneToMany(mappedBy="driver")
+	@OneToMany(mappedBy="driver2")
 	private List<Vehicle> vehicles;
 
 	public Driver() {
@@ -123,6 +128,14 @@ public class Driver implements Serializable {
 		this.user = user;
 	}
 
+	public Vehicle getCurrentVehicle() {
+		return this.currentVehicle;
+	}
+
+	public void setCurrentVehicle(Vehicle currentVehicle) {
+		this.currentVehicle = currentVehicle;
+	}
+
 	public List<Job> getJobs() {
 		return this.jobs;
 	}
@@ -177,14 +190,14 @@ public class Driver implements Serializable {
 
 	public Vehicle addVehicle(Vehicle vehicle) {
 		getVehicles().add(vehicle);
-		vehicle.setDriver(this);
+		vehicle.setDriver2(this);
 
 		return vehicle;
 	}
 
 	public Vehicle removeVehicle(Vehicle vehicle) {
 		getVehicles().remove(vehicle);
-		vehicle.setDriver(null);
+		vehicle.setDriver2(null);
 
 		return vehicle;
 	}

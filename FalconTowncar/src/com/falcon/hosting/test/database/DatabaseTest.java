@@ -7,6 +7,7 @@ import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.User;
+import com.falcon.hosting.doa.Vehicle;
 import com.falcon.hosting.guice.MainModule;
 import com.falcon.hosting.service.FalconPersistenceInitializer;
 import com.falcon.hosting.service.FalconService;
@@ -51,6 +52,9 @@ public class DatabaseTest {
 			Customer customer = job.getCustomer();
 			User uCustomer = customer.getUser();
 			System.out.println("Customer: " + uCustomer.getFirstname() + " " + uCustomer.getLastname());
+			
+			Vehicle vehicle = driver.getCurrentVehicle();
+			System.out.println("Vehicle: " + vehicle.getMake().getName() + " " + vehicle.getModel().getName() + " " + vehicle.getYear());
 		}
 	}
 }

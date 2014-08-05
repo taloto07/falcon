@@ -29,6 +29,11 @@ public class Customer implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date expiration;
 
+	//bi-directional one-to-one association to User
+	@OneToOne
+	@JoinColumn(name="users_id")
+	private User user;
+
 	//bi-directional many-to-one association to Zipcode
 	@ManyToOne
 	@JoinColumn(name="zipcodes_id")
@@ -37,11 +42,6 @@ public class Customer implements Serializable {
 	//bi-directional many-to-one association to Job
 	@OneToMany(mappedBy="customer")
 	private List<Job> jobs;
-
-	//bi-directional one-to-one association to User
-	@OneToOne
-	@JoinColumn(name="users_id")
-	private User user;
 
 	public Customer() {
 	}
@@ -78,6 +78,14 @@ public class Customer implements Serializable {
 		this.expiration = expiration;
 	}
 
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public Zipcode getZipcode() {
 		return this.zipcode;
 	}
@@ -106,14 +114,6 @@ public class Customer implements Serializable {
 		job.setCustomer(null);
 
 		return job;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }
