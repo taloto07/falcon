@@ -7,9 +7,26 @@
 
 	<persistence-unit name="FalconJPA" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.falcon.hosting.doa.Address</class>
+		<class>com.falcon.hosting.doa.City</class>
+		<class>com.falcon.hosting.doa.Comment</class>
+		<class>com.falcon.hosting.doa.Coordination</class>
+		<class>com.falcon.hosting.doa.Country</class>
+		<class>com.falcon.hosting.doa.Customer</class>
+		<class>com.falcon.hosting.doa.Driver</class>
 		<class>com.falcon.hosting.doa.Group</class>
+		<class>com.falcon.hosting.doa.House</class>
+		<class>com.falcon.hosting.doa.Job</class>
+		<class>com.falcon.hosting.doa.LicenseType</class>
+		<class>com.falcon.hosting.doa.Licens</class>
+		<class>com.falcon.hosting.doa.Make</class>
+		<class>com.falcon.hosting.doa.Model</class>
+		<class>com.falcon.hosting.doa.Rate</class>
+		<class>com.falcon.hosting.doa.State</class>
+		<class>com.falcon.hosting.doa.Street</class>
 		<class>com.falcon.hosting.doa.User</class>
-		<class>com.falcon.hosting.doa.UsersGroup</class>
+		<class>com.falcon.hosting.doa.Vehicle</class>
+		<class>com.falcon.hosting.doa.Zipcode</class>
 		
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"></property>

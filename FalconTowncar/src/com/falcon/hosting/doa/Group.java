@@ -22,9 +22,9 @@ public class Group implements Serializable {
 	@Column(name="group_name")
 	private String groupName;
 
-	//bi-directional many-to-one association to UsersGroup
-	@OneToMany(mappedBy="group")
-	private List<UsersGroup> usersGroups;
+	//bi-directional many-to-many association to User
+	@ManyToMany(mappedBy="groups")
+	private List<User> users;
 
 	public Group() {
 	}
@@ -45,26 +45,12 @@ public class Group implements Serializable {
 		this.groupName = groupName;
 	}
 
-	public List<UsersGroup> getUsersGroups() {
-		return this.usersGroups;
+	public List<User> getUsers() {
+		return this.users;
 	}
 
-	public void setUsersGroups(List<UsersGroup> usersGroups) {
-		this.usersGroups = usersGroups;
-	}
-
-	public UsersGroup addUsersGroup(UsersGroup usersGroup) {
-		getUsersGroups().add(usersGroup);
-		usersGroup.setGroup(this);
-
-		return usersGroup;
-	}
-
-	public UsersGroup removeUsersGroup(UsersGroup usersGroup) {
-		getUsersGroups().remove(usersGroup);
-		usersGroup.setGroup(null);
-
-		return usersGroup;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }

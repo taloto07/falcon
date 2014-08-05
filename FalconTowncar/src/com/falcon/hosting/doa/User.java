@@ -11,10 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="users")
-@NamedQueries({
-	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
-	@NamedQuery(name="User.findByEmail", query="SELECT u FROM User u where u.email = :email")
-})
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,9 +27,34 @@ public class User implements Serializable {
 
 	private String password;
 
-	//bi-directional many-to-one association to UsersGroup
+	@Column(name="phone_number")
+	private String phoneNumber;
+
+	//bi-directional one-to-one association to Driver
+	@OneToOne(mappedBy="user")
+	private Driver driver;
+
+	//bi-directional one-to-one association to Customer
+	@OneToOne
+	@JoinColumn(name="id", referencedColumnName="users_id")
+	private Customer customer;
+
+	//bi-directional many-to-many association to Group
+	@ManyToMany
+	@JoinTable(
+		name="users_groups"
+		, joinColumns={
+			@JoinColumn(name="user_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="group_id")
+			}
+		)
+	private List<Group> groups;
+
+	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="user")
-	private List<UsersGroup> usersGroups;
+	private List<Comment> comments;
 
 	public User() {
 	}
@@ -77,26 +99,58 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public List<UsersGroup> getUsersGroups() {
-		return this.usersGroups;
+	public String getPhoneNumber() {
+		return this.phoneNumber;
 	}
 
-	public void setUsersGroups(List<UsersGroup> usersGroups) {
-		this.usersGroups = usersGroups;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public UsersGroup addUsersGroup(UsersGroup usersGroup) {
-		getUsersGroups().add(usersGroup);
-		usersGroup.setUser(this);
-
-		return usersGroup;
+	public Driver getDriver() {
+		return this.driver;
 	}
 
-	public UsersGroup removeUsersGroup(UsersGroup usersGroup) {
-		getUsersGroups().remove(usersGroup);
-		usersGroup.setUser(null);
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
 
-		return usersGroup;
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public List<Group> getGroups() {
+		return this.groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
+
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Comment addComment(Comment comment) {
+		getComments().add(comment);
+		comment.setUser(this);
+
+		return comment;
+	}
+
+	public Comment removeComment(Comment comment) {
+		getComments().remove(comment);
+		comment.setUser(null);
+
+		return comment;
 	}
 
 }
