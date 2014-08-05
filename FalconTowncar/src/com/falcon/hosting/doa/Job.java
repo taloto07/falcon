@@ -35,35 +35,35 @@ public class Job implements Serializable {
 	@OneToMany(mappedBy="job")
 	private List<Comment> comments;
 
+	//bi-directional many-to-one association to Address
+	@ManyToOne
+	@JoinColumn(name="destination_addresses_id")
+	private Address destinationAddress;
+
+	//bi-directional many-to-one association to Address
+	@ManyToOne
+	@JoinColumn(name="source_addresses_id")
+	private Address sourceAddress;
+
 	//bi-directional many-to-one association to Coordination
 	@ManyToOne
 	@JoinColumn(name="source_coordinations_id")
-	private Coordination coordination1;
+	private Coordination sourceCoordination;
+
+	//bi-directional many-to-one association to Coordination
+	@ManyToOne
+	@JoinColumn(name="destination_coordinations_id")
+	private Coordination destinationCoordination;
 
 	//bi-directional many-to-one association to Customer
 	@ManyToOne
 	@JoinColumn(name="customers_id")
 	private Customer customer;
 
-	//bi-directional many-to-one association to Address
-	@ManyToOne
-	@JoinColumn(name="destination_addresses_id")
-	private Address address1;
-
-	//bi-directional many-to-one association to Coordination
-	@ManyToOne
-	@JoinColumn(name="`destination-coordinations_id`")
-	private Coordination coordination2;
-
 	//bi-directional many-to-one association to Driver
 	@ManyToOne
 	@JoinColumn(name="drivers_id")
 	private Driver driver;
-
-	//bi-directional many-to-one association to Address
-	@ManyToOne
-	@JoinColumn(name="source_addresses_id")
-	private Address address2;
 
 	public Job() {
 	}
@@ -138,12 +138,36 @@ public class Job implements Serializable {
 		return comment;
 	}
 
-	public Coordination getCoordination1() {
-		return this.coordination1;
+	public Address getDestinationAddress() {
+		return this.destinationAddress;
 	}
 
-	public void setCoordination1(Coordination coordination1) {
-		this.coordination1 = coordination1;
+	public void setDestinationAddress(Address destinationAddress) {
+		this.destinationAddress = destinationAddress;
+	}
+
+	public Address getSourceAddress() {
+		return this.sourceAddress;
+	}
+
+	public void setSourceAddress(Address sourceAddress) {
+		this.sourceAddress = sourceAddress;
+	}
+
+	public Coordination getSourceCoordination() {
+		return this.sourceCoordination;
+	}
+
+	public void setSourceCoordination(Coordination sourceCoordination) {
+		this.sourceCoordination = sourceCoordination;
+	}
+
+	public Coordination getDestinationCoordination() {
+		return this.destinationCoordination;
+	}
+
+	public void setDestinationCoordination(Coordination destinationCoordination) {
+		this.destinationCoordination = destinationCoordination;
 	}
 
 	public Customer getCustomer() {
@@ -154,36 +178,12 @@ public class Job implements Serializable {
 		this.customer = customer;
 	}
 
-	public Address getAddress1() {
-		return this.address1;
-	}
-
-	public void setAddress1(Address address1) {
-		this.address1 = address1;
-	}
-
-	public Coordination getCoordination2() {
-		return this.coordination2;
-	}
-
-	public void setCoordination2(Coordination coordination2) {
-		this.coordination2 = coordination2;
-	}
-
 	public Driver getDriver() {
 		return this.driver;
 	}
 
 	public void setDriver(Driver driver) {
 		this.driver = driver;
-	}
-
-	public Address getAddress2() {
-		return this.address2;
-	}
-
-	public void setAddress2(Address address2) {
-		this.address2 = address2;
 	}
 
 }

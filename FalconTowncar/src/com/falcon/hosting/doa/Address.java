@@ -57,11 +57,11 @@ public class Address implements Serializable {
 	private List<Driver> drivers;
 
 	//bi-directional many-to-one association to Job
-	@OneToMany(mappedBy="address1")
+	@OneToMany(mappedBy="destinationAddress")
 	private List<Job> jobs1;
 
 	//bi-directional many-to-one association to Job
-	@OneToMany(mappedBy="address2")
+	@OneToMany(mappedBy="sourceAddress")
 	private List<Job> jobs2;
 
 	public Address() {
@@ -163,14 +163,14 @@ public class Address implements Serializable {
 
 	public Job addJobs1(Job jobs1) {
 		getJobs1().add(jobs1);
-		jobs1.setAddress1(this);
+		jobs1.setDestinationAddress(this);
 
 		return jobs1;
 	}
 
 	public Job removeJobs1(Job jobs1) {
 		getJobs1().remove(jobs1);
-		jobs1.setAddress1(null);
+		jobs1.setDestinationAddress(null);
 
 		return jobs1;
 	}
@@ -185,14 +185,14 @@ public class Address implements Serializable {
 
 	public Job addJobs2(Job jobs2) {
 		getJobs2().add(jobs2);
-		jobs2.setAddress2(this);
+		jobs2.setSourceAddress(this);
 
 		return jobs2;
 	}
 
 	public Job removeJobs2(Job jobs2) {
 		getJobs2().remove(jobs2);
-		jobs2.setAddress2(null);
+		jobs2.setSourceAddress(null);
 
 		return jobs2;
 	}

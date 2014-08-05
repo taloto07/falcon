@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQueries({
+	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+	@NamedQuery(name="User.findByEmail", query="SELECT u FROM User u WHERE u.email = :email")
+})
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,14 +33,13 @@ public class User implements Serializable {
 	@Column(name="phone_number")
 	private String phoneNumber;
 
+	//bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy="user")
+	private List<Comment> comments;
+
 	//bi-directional one-to-one association to Driver
 	@OneToOne(mappedBy="user")
 	private Driver driver;
-
-	//bi-directional one-to-one association to Customer
-	@OneToOne
-	@JoinColumn(name="id", referencedColumnName="users_id")
-	private Customer customer;
 
 	//bi-directional many-to-many association to Group
 	@ManyToMany
@@ -52,9 +54,9 @@ public class User implements Serializable {
 		)
 	private List<Group> groups;
 
-	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="user")
-	private List<Comment> comments;
+	//bi-directional one-to-one association to Customer
+	@OneToOne(mappedBy="user")
+	private Customer customer;
 
 	public User() {
 	}
@@ -107,30 +109,6 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Driver getDriver() {
-		return this.driver;
-	}
-
-	public void setDriver(Driver driver) {
-		this.driver = driver;
-	}
-
-	public Customer getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public List<Group> getGroups() {
-		return this.groups;
-	}
-
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
-	}
-
 	public List<Comment> getComments() {
 		return this.comments;
 	}
@@ -151,6 +129,30 @@ public class User implements Serializable {
 		comment.setUser(null);
 
 		return comment;
+	}
+
+	public Driver getDriver() {
+		return this.driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
+	public List<Group> getGroups() {
+		return this.groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
+
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 }

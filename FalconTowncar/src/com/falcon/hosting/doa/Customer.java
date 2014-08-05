@@ -34,13 +34,14 @@ public class Customer implements Serializable {
 	@JoinColumn(name="zipcodes_id")
 	private Zipcode zipcode;
 
-	//bi-directional one-to-one association to User
-	@OneToOne(mappedBy="customer")
-	private User user;
-
 	//bi-directional many-to-one association to Job
 	@OneToMany(mappedBy="customer")
 	private List<Job> jobs;
+
+	//bi-directional one-to-one association to User
+	@OneToOne
+	@JoinColumn(name="users_id")
+	private User user;
 
 	public Customer() {
 	}
@@ -85,14 +86,6 @@ public class Customer implements Serializable {
 		this.zipcode = zipcode;
 	}
 
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public List<Job> getJobs() {
 		return this.jobs;
 	}
@@ -113,6 +106,14 @@ public class Customer implements Serializable {
 		job.setCustomer(null);
 
 		return job;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

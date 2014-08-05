@@ -24,11 +24,11 @@ public class Coordination implements Serializable {
 	private double longitude;
 
 	//bi-directional many-to-one association to Job
-	@OneToMany(mappedBy="coordination1")
+	@OneToMany(mappedBy="sourceCoordination")
 	private List<Job> jobs1;
 
 	//bi-directional many-to-one association to Job
-	@OneToMany(mappedBy="coordination2")
+	@OneToMany(mappedBy="destinationCoordination")
 	private List<Job> jobs2;
 
 	public Coordination() {
@@ -68,14 +68,14 @@ public class Coordination implements Serializable {
 
 	public Job addJobs1(Job jobs1) {
 		getJobs1().add(jobs1);
-		jobs1.setCoordination1(this);
+		jobs1.setSourceCoordination(this);
 
 		return jobs1;
 	}
 
 	public Job removeJobs1(Job jobs1) {
 		getJobs1().remove(jobs1);
-		jobs1.setCoordination1(null);
+		jobs1.setSourceCoordination(null);
 
 		return jobs1;
 	}
@@ -90,14 +90,14 @@ public class Coordination implements Serializable {
 
 	public Job addJobs2(Job jobs2) {
 		getJobs2().add(jobs2);
-		jobs2.setCoordination2(this);
+		jobs2.setDestinationCoordination(this);
 
 		return jobs2;
 	}
 
 	public Job removeJobs2(Job jobs2) {
 		getJobs2().remove(jobs2);
-		jobs2.setCoordination2(null);
+		jobs2.setDestinationCoordination(null);
 
 		return jobs2;
 	}
