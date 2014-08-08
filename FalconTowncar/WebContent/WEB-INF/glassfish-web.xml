@@ -5,18 +5,18 @@
     <context-root>/FalconTowncar</context-root>
     
     <security-role-mapping>
-    	<role-name>role_admin</role-name>
-    	<group-name>admin</group-name>
+    	<role-name>role_owner</role-name>
+    	<group-name>owner</group-name>
     </security-role-mapping>
     
     <security-role-mapping>
-    	<role-name>role_normal</role-name>
-    	<group-name>normal</group-name>
+    	<role-name>role_driver</role-name>
+    	<group-name>driver</group-name>
     </security-role-mapping>
     
     <security-role-mapping>
-    	<role-name>role_premium</role-name>
-    	<group-name>premium</group-name>
+    	<role-name>role_customer</role-name>
+    	<group-name>customer</group-name>
     </security-role-mapping>
     
 </glassfish-web-app>
