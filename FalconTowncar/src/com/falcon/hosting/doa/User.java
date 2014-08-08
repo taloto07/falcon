@@ -32,6 +32,9 @@ public class User implements Serializable {
 
 	@Column(name="phone_number")
 	private String phoneNumber;
+	
+	@Column(name="registration_id")
+	private String registrationId;
 
 	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="user")
@@ -59,6 +62,14 @@ public class User implements Serializable {
 	private List<Group> groups;
 
 	public User() {
+	}
+	
+	public String getRegistrationId() {
+		return registrationId;
+	}
+
+	public void setRegistrationId(String registrationId) {
+		this.registrationId = registrationId;
 	}
 
 	public int getId() {
