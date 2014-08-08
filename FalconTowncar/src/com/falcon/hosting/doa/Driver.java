@@ -12,7 +12,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="drivers")
-@NamedQuery(name="Driver.findAll", query="SELECT d FROM Driver d")
+@NamedQueries({
+	@NamedQuery(name="Driver.findAll", query="SELECT d FROM Driver d"),
+	@NamedQuery(name="Driver.findVehicleCapacityGreaterThanOrEqual", query="SELECT d FROM Driver d WHERE d.currentVehicle.capacity >= :capacity")
+})
+
 public class Driver implements Serializable {
 	private static final long serialVersionUID = 1L;
 

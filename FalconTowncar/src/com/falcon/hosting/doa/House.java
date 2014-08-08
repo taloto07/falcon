@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="houses")
-@NamedQuery(name="House.findAll", query="SELECT h FROM House h")
+@NamedQueries({
+	@NamedQuery(name="House.findAll", query="SELECT h FROM House h"),
+	@NamedQuery(name="House.findByHouseNumber", query="SELECT h FROM House h WHERE h.number = :number")
+})
+
 public class House implements Serializable {
 	private static final long serialVersionUID = 1L;
 

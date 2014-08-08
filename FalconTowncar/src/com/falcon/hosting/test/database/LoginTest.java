@@ -1,5 +1,11 @@
 package com.falcon.hosting.test.database;
 
+import java.util.List;
+
+import com.falcon.hosting.doa.Comment;
+import com.falcon.hosting.doa.Driver;
+import com.falcon.hosting.doa.House;
+import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.User;
 import com.falcon.hosting.guice.MainModule;
 import com.falcon.hosting.service.FalconPersistenceInitializer;
@@ -16,16 +22,39 @@ public class LoginTest {
 		injector.getInstance(FalconPersistenceInitializer.class);
 		service = injector.getInstance(FalconService.class);
 		
-		User u = service.getUserByEmail("chamnaplim@yahoo.com");
+		List<User> users = service.getUsersByGroupName("customer");
 		
-		if (u == null)
-			System.out.println("U is null");
-		else
-			System.out.println("U is NOT null");
+		for (User u: users){
+			System.out.println(u.getFirstname());
+		}
 		
-		String firstName = u.getFirstname();
-		String lastName = u.getLastname();
+		User cham = service.getUserByEmail("chamnaplim@yahoo.com");
+		Driver driverCham = cham.getDriver();
 		
-		System.out.println(firstName + " " + lastName);
+		List<Job> chamJobs = driverCham.getJobs();
+		for (Job j: chamJobs){
+			System.out.println(j.getDate());
+		}
+		
+		List<Driver> drivers = service.getDriverCurrentVehicleCapacityGreaterThanOrEqual(3);
+		for (Driver d: drivers){
+			System.out.println(d.getBankName());
+		}
+		
+		List<House> houses = service.getAllHouse();
+		for (House h: houses){
+			System.out.println(h.getNumber());
+		}
+		
+		House house750 = service.getHouseByNumber("750");
+		System.out.println("house 751 id: " + house750.getId());
+		
+		List<Comment> comments = null;
+		comments = service.getAllComment();
+		if (comments.isEmpty()){
+			System.out.println("No comment!");
+		}else{
+			System.out.println("comments is NOT null");
+		}
 	}
 }

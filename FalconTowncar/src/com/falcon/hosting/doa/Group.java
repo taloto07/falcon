@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="groups")
-@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g")
+@NamedQueries({
+	@NamedQuery(name="Group.findAll", query="SELECT g FROM Group g"),
+	@NamedQuery(name="Group.findByName", query="SELECT g FROM Group g WHERE g.groupName = :groupName")
+})
+
 public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;
 
