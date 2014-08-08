@@ -64,7 +64,7 @@ template(contextPath, title, body, home, about, contact)::="
             </li>
           </ul>
           <ul class='nav navbar-nav navbar-right'>
-          	<li><a href='#'>Log In</a></li>
+          	<li><a href='$contextPath$login'>Log In</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

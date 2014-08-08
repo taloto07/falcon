@@ -3,6 +3,8 @@ package com.falcon.hosting.guice;
 import com.falcon.hosting.servlet.ChamServlet;
 import com.falcon.hosting.servlet.ControllerServlet;
 import com.falcon.hosting.servlet.DispatchServlet;
+import com.falcon.hosting.servlet.LoginServlet;
+import com.falcon.hosting.servlet.LogoutServlet;
 import com.falcon.hosting.servlet.SignupServlet;
 import com.falcon.hosting.servlet.TestServlet;
 import com.falcon.hosting.servlet.ViewServlet;
@@ -23,9 +25,13 @@ public class MainModule extends ServletModule{
 		bind(ControllerServlet.class).in(Singleton.class);
 		bind(ViewServlet.class).in(Singleton.class);
 		bind(SignupServlet.class).in(Singleton.class);
+		bind(LoginServlet.class).in(Singleton.class);
+		bind(LogoutServlet.class).in(Singleton.class);
 		
 		serve("/").with(DispatchServlet.class);
 		serve("*.html").with(DispatchServlet.class);
+		serve("/login").with(LoginServlet.class);
+		serve("/logout").with(LogoutServlet.class);
 		serve("/secure").with(TestServlet.class);
 		serve("/cham").with(ChamServlet.class);
 		serve("/controller").with(ControllerServlet.class);
