@@ -56,7 +56,7 @@ public class LoginServlet extends BaseServlet {
 			}
 		}
 		
-		
+		this.checkLogin(page, request);	// change login to logout if already logged in
 		page.add("contextPath", contextPath);
 		page.add("title", "Login");
 		page.add("body", body.render());

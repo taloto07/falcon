@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
@@ -43,5 +44,10 @@ public class BaseServlet extends HttpServlet {
 	protected String compressHTML(String content){
 		HtmlCompressor compresor = new HtmlCompressor();
 		return compresor.compress(content);
+	}
+	
+	protected void checkLogin(ST page, HttpServletRequest request){
+		if (request.getRemoteUser() != null)
+			page.add("login", "true");
 	}
 }

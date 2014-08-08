@@ -1,4 +1,4 @@
-template(contextPath, title, body, home, about, contact)::="
+template(contextPath, title, body, home, about, contact, login)::="
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -64,7 +64,11 @@ template(contextPath, title, body, home, about, contact)::="
             </li>
           </ul>
           <ul class='nav navbar-nav navbar-right'>
-          	<li><a href='$contextPath$login'>Log In</a></li>
+          	$if(login)$
+          		<li><a href='$contextPath$logout'>Log Out</a></li>
+          	$else$
+          		<li><a href='$contextPath$login'>Log In</a></li>
+          	$endif$
           </ul>
         </div><!--/.nav-collapse -->
       </div>

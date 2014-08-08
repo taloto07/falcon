@@ -1,7 +1,7 @@
 page404(contextPath)::="
 <div class='container'>
-	<div class='col-md-4 col-md-offset-3'>
-		<img src='$contextPath$img/404-mario.jpg' />
+	<div class='col-md-4'>
+		<img src='$contextPath$img/oh-boy-i-think-im-allergic-to-404s.jpg' />
 	</div>
 </div>
 ";

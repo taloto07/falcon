@@ -54,6 +54,7 @@ public class LogoutServlet extends BaseServlet {
 			
 			body.add("message", "See you soon " + firstName + " " + lastName);
 			
+			this.checkLogin(page, request);
 			page.add("contextPath", contextPath);
 			page.add("title", "Log Out");
 			page.add("body", body.render());

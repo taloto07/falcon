@@ -50,8 +50,11 @@ public class DispatchServlet extends BaseServlet {
 		ST body = templates.getInstanceOf(bodyPage);
 		body.add("contextPath", contextPath);
 		
+		// any pages beside these get active mode (background highlight on menu bar)
 		if (!bodyPage.equalsIgnoreCase("page404") && !bodyPage.equalsIgnoreCase("termsandconditions"))
 			page.add(bodyPage, "active");
+		
+		this.checkLogin(page, request);
 		page.add("contextPath", contextPath);
 		page.add("title", pages.get(bodyPage));
 		page.add("body", body.render());
