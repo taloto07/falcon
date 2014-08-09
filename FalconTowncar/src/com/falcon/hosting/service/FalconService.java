@@ -5,11 +5,17 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import com.falcon.hosting.doa.Address;
+import com.falcon.hosting.doa.City;
 import com.falcon.hosting.doa.Comment;
+import com.falcon.hosting.doa.Country;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.Group;
 import com.falcon.hosting.doa.House;
+import com.falcon.hosting.doa.State;
+import com.falcon.hosting.doa.Street;
 import com.falcon.hosting.doa.User;
+import com.falcon.hosting.doa.Zipcode;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -101,6 +107,93 @@ public class FalconService {
 		}
 	}
 	//-------------------------------------------End House-----------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------Street--------------------------------------------------------------------------------------------------------
+	// get all streets
+	public List<Street> getAllStreet(){
+		return entityManager.get().createNamedQuery("Street.findAll", Street.class).getResultList();
+	}
+	
+	// get street object by street name
+	public House getStreetByName(String name){
+		try{
+			return entityManager.get().createNamedQuery("Street.findByName", House.class).setParameter("name", name).getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	//-------------------------------------------End Street----------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------City----------------------------------------------------------------------------------------------------------
+	// get all cities
+	public List<City> getAllCity(){
+		return entityManager.get().createNamedQuery("City.findAll", City.class).getResultList();
+	}
+	
+	// get city object by city name
+	public City getCityByName(String name){
+		try{
+			return entityManager.get().createNamedQuery("City.findByName", City.class).setParameter("name", name).getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	//-------------------------------------------End City------------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------State---------------------------------------------------------------------------------------------------------
+	// get all states
+	public List<State> getAllState(){
+		return entityManager.get().createNamedQuery("State.findAll", State.class).getResultList();
+	}
+	
+	// get state object by state name
+	public State getStateByName(String name){
+		try{
+			return entityManager.get().createNamedQuery("State.findByName", State.class).setParameter("name", name).getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	//-------------------------------------------End State-----------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------State---------------------------------------------------------------------------------------------------------
+	// get all zipcodes
+	public List<Zipcode> getAllZipcode(){
+		return entityManager.get().createNamedQuery("Zipcode.findAll", Zipcode.class).getResultList();
+	}
+	
+	// get zipcode object by zipcode name
+	public Zipcode getZipcodeByZipcdoe(int zipcode){
+		try{
+			return entityManager.get().createNamedQuery("Zipcode.findByZipcode", Zipcode.class).setParameter("zipcode", zipcode).getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	//-------------------------------------------End State-----------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------Country-------------------------------------------------------------------------------------------------------
+	// get all countries
+	public List<Country> getAllCountry(){
+		return entityManager.get().createNamedQuery("Country.findAll", Country.class).getResultList();
+	}
+	
+	// get state object by state name
+	public Country getCountryByName(String name){
+		try{
+			return entityManager.get().createNamedQuery("Country.findByName", Country.class).setParameter("name", name).getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	//-------------------------------------------End Country---------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------Address-------------------------------------------------------------------------------------------------------
+	// get all addresses
+	public List<Address> getAllAddress(){
+		return entityManager.get().createNamedQuery("Address.findAll", Address.class).getResultList();
+	}
+	//-------------------------------------------End Address---------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------Comment-------------------------------------------------------------------------------------------------------
 	// get all comments

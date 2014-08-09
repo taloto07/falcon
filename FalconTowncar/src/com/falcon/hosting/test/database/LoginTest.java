@@ -2,6 +2,7 @@ package com.falcon.hosting.test.database;
 
 import java.util.List;
 
+import com.falcon.hosting.doa.Address;
 import com.falcon.hosting.doa.Comment;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.House;
@@ -55,6 +56,19 @@ public class LoginTest {
 			System.out.println("No comment!");
 		}else{
 			System.out.println("comments is NOT null");
+		}
+		
+		System.out.println();
+		
+		List<Address> addresses = service.getAllAddress();
+		for (Address a: addresses){
+			String houseNumber = a.getHouse().getNumber();
+			String streetName = a.getStreet().getName();
+			String cityName = a.getCity().getName();
+			String stateAbb = a.getState().getAbbreviation();
+			int zipcode = a.getZipcode().getZipcode();
+			
+			System.out.println(houseNumber + " " + streetName + " " + cityName + ", " + stateAbb + " " + zipcode);
 		}
 	}
 }

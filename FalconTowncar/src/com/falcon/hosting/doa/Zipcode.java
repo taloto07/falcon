@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="zipcodes")
-@NamedQuery(name="Zipcode.findAll", query="SELECT z FROM Zipcode z")
+@NamedQueries({
+	@NamedQuery(name="Zipcode.findAll", query="SELECT z FROM Zipcode z"),
+	@NamedQuery(name="Zipcode.findByZipcode", query="SELECT z FROM Zipcode z WHERE z.zipcode = :zipcode")
+})
+
 public class Zipcode implements Serializable {
 	private static final long serialVersionUID = 1L;
 
