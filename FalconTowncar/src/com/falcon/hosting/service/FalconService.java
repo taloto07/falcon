@@ -86,6 +86,7 @@ public class FalconService {
 		return entityManager.get().createNamedQuery("Driver.findAll", Driver.class).getResultList();
 	}
 	
+	// get list of driver based on their current vehicle capacity >= capacity variable
 	public List<Driver> getDriverCurrentVehicleCapacityGreaterThanOrEqual(int capacity){
 		return entityManager.get().createNamedQuery("Driver.findVehicleCapacityGreaterThanOrEqual", Driver.class).setParameter("capacity", capacity)
 				.getResultList();

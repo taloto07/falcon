@@ -61,7 +61,7 @@ public class ChamServlet extends BaseServlet {
 		body.add("user", u);
 		body.add("users", users);
 		body.add("contextPath", contextPath);
-		body.add("image", "myImage.jpeg"); // change to myImage.jpg
+		body.add("image", images.get(imageIndex)); // change to myImage.jpg
 		page.add("contextPath", contextPath);
 		page.add("title", "Cham Image");
 		page.add("body", body.render());

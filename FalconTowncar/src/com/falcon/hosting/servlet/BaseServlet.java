@@ -11,6 +11,7 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
+import com.falcon.hosting.doa.User;
 import com.falcon.hosting.service.FalconService;
 import com.google.inject.Inject;
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor;
@@ -47,7 +48,11 @@ public class BaseServlet extends HttpServlet {
 	}
 	
 	protected void checkLogin(ST page, HttpServletRequest request){
-		if (request.getRemoteUser() != null)
+		if (request.getRemoteUser() != null){
+			User user = service.getUserByEmail(request.getRemoteUser());
+			String username = user.getFirstname() + " " + user.getLastname();
+			page.add("username", username);
 			page.add("login", "true");
+		}
 	}
 }

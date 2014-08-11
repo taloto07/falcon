@@ -1,4 +1,4 @@
-template(contextPath, title, body, home, about, contact, login)::="
+template(contextPath, title, body, home, about, contact, login, username)::="
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -65,6 +65,7 @@ template(contextPath, title, body, home, about, contact, login)::="
           </ul>
           <ul class='nav navbar-nav navbar-right'>
           	$if(login)$
+          		<li><a href='#'>$username$</a></li>
           		<li><a href='$contextPath$logout'>Log Out</a></li>
           	$else$
           		<li><a href='$contextPath$login'>Log In</a></li>

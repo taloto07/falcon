@@ -1,7 +1,12 @@
 package com.falcon.hosting.doa;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+
 import java.util.List;
 
 
