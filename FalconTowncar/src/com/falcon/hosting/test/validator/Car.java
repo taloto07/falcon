@@ -1,12 +1,18 @@
 package com.falcon.hosting.test.validator;
 
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.CreditCardNumber;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Car {
-	@NotNull
+	@NotNull(message="Manufacturer can not be null!")
+	@NotEmpty(message="Manufacturer can not be empty!")
 	private String manufacturer;
 	
 	@NotNull
@@ -23,6 +29,9 @@ public class Car {
 	@NotNull
 	private String confirmPassword;
 	
+	@NotEmpty
+	private String creditCard;
+	
 	@AssertTrue(message="Password doesn't matched!")
 	private boolean isPasswordMatch(){
 		return password.equals(confirmPassword);
@@ -30,6 +39,15 @@ public class Car {
 	
 	public Car(){
 		
+	}
+
+	@CreditCardNumber
+	public String getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(String creditCard) {
+		this.creditCard = creditCard;
 	}
 
 	public String getManufacturer() {

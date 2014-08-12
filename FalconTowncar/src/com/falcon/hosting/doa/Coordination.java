@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="coordinations")
-@NamedQuery(name="Coordination.findAll", query="SELECT c FROM Coordination c")
+@NamedQueries({
+	@NamedQuery(name="Coordination.findAll", query="SELECT c FROM Coordination c"),
+	@NamedQuery(name="Coordination.findByLtnLng", query="SELECT c FROM Coordination c WHERE c.latitude = :latitude AND c.longitude = :longitude")
+})
+
 public class Coordination implements Serializable {
 	private static final long serialVersionUID = 1L;
 

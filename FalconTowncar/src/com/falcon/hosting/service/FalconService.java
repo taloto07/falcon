@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 import com.falcon.hosting.doa.Address;
 import com.falcon.hosting.doa.City;
 import com.falcon.hosting.doa.Comment;
+import com.falcon.hosting.doa.Coordination;
 import com.falcon.hosting.doa.Country;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.Group;
@@ -202,4 +203,33 @@ public class FalconService {
 		return entityManager.get().createNamedQuery("Comment.findAll", Comment.class).getResultList();
 	}
 	//-------------------------------------------End Comment---------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------Coordination--------------------------------------------------------------------------------------------------
+	// get all coordinations
+	public List<Coordination> getAllCordination(){
+		return entityManager.get().createNamedQuery("Coordination.findAll", Coordination.class).getResultList();
+	}
+	
+	// get coordination by latitude and longitude
+	public Coordination getCoordinationByLtnLng(double latitude, double longitude){
+		try{
+			return entityManager.get().createNamedQuery("Coordination.findByLtnLng", Coordination.class).setParameter("latitude", latitude)
+					.setParameter("longitude", longitude).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	
+	// add coordination
+	public boolean addCoordination(Coordination coordination){
+		if (getCoordinationByLtnLng(coordination.getLatitude(), coordination.getLongitude()) != null)
+			return false;
+		
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(coordination);
+		entityManager.get().getTransaction().commit();
+		
+		return true;
+	}
+	//-------------------------------------------End Coordination----------------------------------------------------------------------------------------------
 }
