@@ -1,4 +1,4 @@
-template(contextPath, title, body, home, about, contact, login, username)::="
+template(contextPath, title, body, home, about, contact, history, login, username)::="
 <!DOCTYPE html>
 <html lang='en'>
   <head>
