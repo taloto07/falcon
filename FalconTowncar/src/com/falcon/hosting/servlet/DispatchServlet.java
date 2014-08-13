@@ -23,7 +23,7 @@ public class DispatchServlet extends BaseServlet {
         pages.put("home", "Home");
 		pages.put("about", "About Us");
 		pages.put("contact", "Contact Us");
-		pages.put("history", "Home");
+		pages.put("history", "History");
 		pages.put("page404", "Page 404");
 		pages.put("termsandconditions", "Terms & Conditions");
     }
