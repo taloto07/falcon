@@ -26,12 +26,16 @@ import com.falcon.hosting.guice.InjectorGuice;
 import com.falcon.hosting.restful.helper.UploadImageHelper;
 import com.falcon.hosting.restful.helper.UserFromJson;
 import com.falcon.hosting.service.FalconService;
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Result;
+import com.google.android.gcm.server.Sender;
 import com.google.gson.Gson;
 
 
 @Path("v1")
 public class V1 {
 	FalconService service;
+	final String projectId = "AIzaSyAb9uvsLAhq80R-gYBBStg8H-xTqopvxwk";
 	
 	public V1(){
 		service = InjectorGuice.injector.getInstance(FalconService.class);
@@ -42,6 +46,32 @@ public class V1 {
 	@Produces(MediaType.TEXT_HTML)
 	public String getStatus(){
 		return "Restful service version 1.0";
+	}
+	
+	@Path("shareGCMRegId")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDeviceId(String data) throws JSONException, IOException{
+		
+		JSONObject json_obj = new JSONObject(data);
+		
+		String userId = json_obj.getString("gcmUserId");
+		String deviceId = json_obj.getString("gcmRegisterId");
+		
+		System.out.println("******Send Device Id*******");
+		System.out.println("User Id: " + userId);
+		System.out.println("Device Id: " + deviceId);
+
+		 //server will do this
+		 
+//		Sender sender = new Sender(projectId);
+//		Message message = new Message.Builder().timeToLive(30)
+//				.delayWhileIdle(true).addData("message", deviceId).build();
+//		System.out.println("regId: " + deviceId);
+//		Result result = sender.send(message, deviceId, 1);
+		
+		return Response.status(200).entity("Send Device Id").build();
 	}
 	
 	@Path("getalluser")
@@ -123,19 +153,19 @@ public class V1 {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String userLogin(String data){
 		
-//		JSONObject json_obj = null;
-//		String str_userId;
-//		String str_password;
-//		try{
-//			json_obj = new JSONObject(data);
-//			str_userId = json_obj.getString("userid");
-//			str_userId = json_obj.getString("password");
-//			
-//			//check in database see if match: match return OK, else return FAILED
-//			
-//		} catch (JSONException e){
-//			
-//		}
+		JSONObject json_obj = null;
+		String str_userId = null;
+		String str_password = null;
+		try{
+			json_obj = new JSONObject(data);
+			str_userId = json_obj.getString("userid");
+			str_userId = json_obj.getString("password");
+			
+			//check in database see if match: match return OK, else return FAILED
+			
+		} catch (JSONException e){
+			
+		}
 		return "OK";
 	}
 	
