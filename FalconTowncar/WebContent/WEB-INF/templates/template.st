@@ -1,4 +1,4 @@
-template(contextPath, title, body, home, about, contact, login, username)::="
+template(contextPath, title, body, home, about, contact, history, login, username)::="
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -49,7 +49,8 @@ template(contextPath, title, body, home, about, contact, login, username)::="
           <ul class='nav navbar-nav'>
             <li class='$home$'><a href='$contextPath$'>Home</a></li>
             <li class='$about$'><a href='$contextPath$about.html'>About</a></li>
-            <li class='$contact$'><a href='$contextPath$contact.html'>Contact</a></li>
+            <li class='$contact$'><a href='$contextPath$contact.html'>Contact</a></li>            
+            <li class='$history$'><a href='$contextPath$history.html'>History</a></li>
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Dropdown <span class='caret'></span></a>
               <ul class='dropdown-menu' role='menu'>
