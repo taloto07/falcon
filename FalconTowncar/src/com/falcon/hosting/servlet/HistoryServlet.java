@@ -38,7 +38,8 @@ public class HistoryServlet extends BaseServlet {
 		ST page = templates.getInstanceOf("template");
 		ST body = null;
 				
-		
+		body = templates.getInstanceOf("history");
+		body.add("errorMessage", errorMessage);
 		page.add("contextPath", contextPath);
 		page.add("title", "History");
 		page.add("body", body.render());

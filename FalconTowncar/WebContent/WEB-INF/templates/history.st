@@ -4,6 +4,7 @@ history(errorMessage)::="
 		<div class='page-header'>
     		<h1>Recent Jobs History</h1>
   		</div>		
+  		$errorMessage$
 	</div>
 </div>
 ";
