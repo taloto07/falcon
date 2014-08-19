@@ -28,7 +28,7 @@ public class RegistrationServlet extends BaseServlet {
 		STGroup templates = this.getSTGroup();
 		ST page = templates.getInstanceOf("template");
 		ST body = templates.getInstanceOf("registration");
-		
+		body.add("contextPath", contextPath);
 		page.add("contextPath", contextPath);
 		page.add("title", "Registration");
 		page.add("body", body.render());
