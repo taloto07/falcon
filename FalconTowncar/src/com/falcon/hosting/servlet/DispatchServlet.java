@@ -26,6 +26,7 @@ public class DispatchServlet extends BaseServlet {
 		pages.put("history", "History");
 		pages.put("page404", "Page 404");
 		pages.put("termsandconditions", "Terms & Conditions");
+		pages.put("registration", "Registration");
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
