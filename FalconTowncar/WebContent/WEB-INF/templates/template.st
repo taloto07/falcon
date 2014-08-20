@@ -1,4 +1,4 @@
-template(contextPath, title, body, home, about, contact, history, login, username)::="
+template(contextPath, title, body, home, about, contact, history, login, username, script)::="
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -13,6 +13,9 @@ template(contextPath, title, body, home, about, contact, history, login, usernam
 
     <!-- Bootstrap core CSS -->
     <link href='$contextPath$css/bootstrap.min.css' rel='stylesheet'>
+    
+    <!-- Bootstrap datepicker CSS -->
+    <link href='$contextPath$css/datepicker.css' rel='stylesheet'>
 
     <!-- Custom styles for this template -->
     <link href='$contextPath$css/sticky-footer-navbar.css' rel='stylesheet'>
@@ -94,7 +97,9 @@ template(contextPath, title, body, home, about, contact, history, login, usernam
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-    <script src='/FalconTowncar/js/bootstrap.min.js'></script>
+    <script src='$contextPath$js/bootstrap.min.js'></script>
+    
+    $script$
   </body>
 </html>
 ";

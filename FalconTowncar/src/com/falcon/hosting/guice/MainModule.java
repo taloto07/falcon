@@ -5,6 +5,7 @@ import com.falcon.hosting.servlet.ControllerServlet;
 import com.falcon.hosting.servlet.DispatchServlet;
 import com.falcon.hosting.servlet.LoginServlet;
 import com.falcon.hosting.servlet.LogoutServlet;
+import com.falcon.hosting.servlet.RegisterDriverServlet;
 import com.falcon.hosting.servlet.SignupServlet;
 import com.falcon.hosting.servlet.TestServlet;
 import com.falcon.hosting.servlet.ViewServlet;
@@ -27,6 +28,7 @@ public class MainModule extends ServletModule{
 		bind(SignupServlet.class).in(Singleton.class);
 		bind(LoginServlet.class).in(Singleton.class);
 		bind(LogoutServlet.class).in(Singleton.class);
+		bind(RegisterDriverServlet.class).in(Singleton.class);
 		
 		serve("/").with(DispatchServlet.class);
 		serve("*.html").with(DispatchServlet.class);
@@ -37,5 +39,6 @@ public class MainModule extends ServletModule{
 		serve("/controller").with(ControllerServlet.class);
 		serve("/view").with(ViewServlet.class);
 		serve("/signup").with(SignupServlet.class);
+		serve("/register_driver").with(RegisterDriverServlet.class);
 	}
 }
