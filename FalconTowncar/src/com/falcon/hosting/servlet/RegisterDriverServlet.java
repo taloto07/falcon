@@ -47,11 +47,13 @@ public class RegisterDriverServlet extends BaseServlet {
 		script.remove("filename");
 		script.add("filename", "start-date-picker-script.js");
 		String startDatePicker = script.render();
+		// end ending javascript
 		
+		this.checkLogin(page, request);
 		page.add("contextPath", contextPath);
 		page.add("body", body.render());
 		page.add("script", datePicker + startDatePicker);
-		// end ending javascript
+		
 		
 		out.write(page.render());
 		out.flush();
