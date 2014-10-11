@@ -100,6 +100,7 @@ template(contextPath, title, body, home, about, contact, history, login, usernam
     <script src='$contextPath$js/bootstrap.min.js'></script>
     
     $script$
+    
   </body>
 </html>
 ";

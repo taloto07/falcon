@@ -1,4 +1,4 @@
-registerdriver(contextPath, errorMessage)::="
+registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 
 <div class='container'>
 	<div class='jumbotron'>
@@ -6,13 +6,13 @@ registerdriver(contextPath, errorMessage)::="
 				<div class='alert alert-danger'>$errorMessage$</div>
 		$endif$
 		
-		<form class='form-horizontal' role='form' method='post' action='register_driver_check'>
+		<form class='form-horizontal' role='form' method='post' action='$contextPath$register-driver'>
 			<h1><center>Register Driver</center></h1>
 			
-			<div class='form-group'>
+			<div class='form-group $errorFirstName$'>
 		    	<label for='firstname' class='col-sm-2 control-label'>First Name</label>
 		    	<div class='col-sm-10'>
-		    		<input type='text' class='form-control' id='firstname' placeholder='First Name' name='firstname'>
+		    		<input value='' type='text' class='form-control' id='firstname' placeholder='First Name' name='firstname'>
 		   		</div>
 		  	</div>
 		  	
@@ -39,9 +39,9 @@ registerdriver(contextPath, errorMessage)::="
 		  	
 		  	<div class='form-group'>
 		    	<label for='dob' class='col-sm-2 control-label'>Date of Birth</label>
-		    	<div class='col-sm-10 input-append date' id='dob-datepicker' data-date='12-02-1980' data-date-format='dd-mm-yyyy'>
-					<input size='16' type='text' value='12-02-2014' id='dob' name='dob' disabled>
-				  	<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
+		    	<div class='col-sm-10 input-append date' id='dob-datepicker' data-date='12-02-1980' data-date-format='mm-dd-yyyy'>
+					<input size='16' type='text' placeholder='12-02-2014' id='dob' name='dob'>
+					<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
 				</div>
 		  	</div>
 		  	
@@ -60,8 +60,88 @@ registerdriver(contextPath, errorMessage)::="
 		  	</div>
 		  	
 		  	<div class='form-group'>
+		    	<label for='address' class='col-sm-2 control-label'>Address</label>
+		    	<div class='col-sm-10'>
+		    		<input type='text' class='form-control' id='address' placeholder='House number Street number' name='address'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='city' class='col-sm-2 control-label'>City</label>
+		    	<div class='col-sm-10'>
+		    		<input type='text' class='form-control' id='city' placeholder='City' name='city'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='state' class='col-sm-2 control-label'>State</label>
+		    	<div class='col-sm-10'>
+		    		<select type='text' class='form-control' id='state' placeholder='City' name='state'>
+		    			<option>Select</option>
+		    			$states:{state|
+		    				<option value='$state.id$'>$state.name$</option>
+		    			}$
+		    		</select>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='zipcode' class='col-sm-2 control-label'>Zipcode</label>
+		    	<div class='col-sm-10'>
+		    		<input type='number' class='form-control' id='zipcode' placeholder='Zipcode' name='zipcode'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='phoneNumber' class='col-sm-2 control-label'>Phone Number</label>
+		    	<div class='col-sm-10'>
+		    		<input type='number' class='form-control' id='phoneNumber' placeholder='Phone Number' name='phoneNumber'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='bankName' class='col-sm-2 control-label'>Bank Name</label>
+		    	<div class='col-sm-10'>
+		    		<input type='text' class='form-control' id='bankName' placeholder='Bank Name' name='bankName'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='drivingLicense' class='col-sm-2 control-label'>Driving License</label>
+		    	<div class='col-sm-4'>
+		    		<input type='text' class='form-control' id='drivingLicense' placeholder='Driving License' name='drivingLicense'>
+		   		</div>
+		   		
+		   		<label for='drivingLicenseExpiration' class='col-sm-2 control-label'>Expiration</label>
+		   		<div class='col-sm-4 input-append date' id='DL-datepicker' data-date='12-02-1980' data-date-format='mm-dd-yyyy'>
+		    		<input type='text' id='drivingLicenseExpiration' placeholder='Expiration' name='drivingLicenseExpiration'>
+		    		<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='DLFH' class='col-sm-2 control-label'>Driving License For Hiring</label>
+		    	<div class='col-sm-4'>
+		    		<input type='text' class='form-control' id='DLFH' placeholder='Driving License For Hiring' name='DLFH'>
+		   		</div>
+		   		
+		   		<label for='DLFHExpiration' class='col-sm-2 control-label'>Expiration</label>
+		   		<div class='col-sm-4 input-append date' id='DLFH-datepicker' data-date='12-02-1980' data-date-format='mm-dd-yyyy'>
+		    		<input type='text' id='DLFHExpiration' placeholder='Expiration' name='DLFHExpiration'>
+		    		<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='backAccountNumber' class='col-sm-2 control-label'>Bank Account Number</label>
+		    	<div class='col-sm-10'>
+		    		<input type='number' class='form-control' id='backAccountNumber' placeholder='Bank Account Number' name='bankAccountNumber'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
 				<div class='col-sm-offset-2 col-sm-10'>
-	  				<button type='submit' class='btn btn-default'>Log In</button>
+	  				<button type='submit' class='btn btn-default'>Register</button>
 	  				<button type='reset' class='btn btn-default'>Reset</button>
 				</div>
 			</div>

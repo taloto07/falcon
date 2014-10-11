@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name="states")
 @NamedQueries({
 	@NamedQuery(name="State.findAll", query="SELECT s FROM State s"),
-	@NamedQuery(name="State.findByName", query="SELECT s FROM State s WHERE s.name = :name")
+	@NamedQuery(name="State.findByName", query="SELECT s FROM State s WHERE s.name = :name"),
+	@NamedQuery(name="State.findAllASC", query="SELECT s FROM State s ORDER BY s.name ASC")
 })
 
 public class State implements Serializable {

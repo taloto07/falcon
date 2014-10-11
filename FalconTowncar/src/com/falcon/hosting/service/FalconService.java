@@ -23,6 +23,14 @@ import com.google.inject.Provider;
 public class FalconService {
 	@Inject
 	private Provider<EntityManager> entityManager;
+	
+	//-------------------------------------------Refresh-------------------------------------------------------------------------------------------------------
+	// flushing updating information to database
+	public void flush(){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().getTransaction().commit();
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	//-------------------------------------------User----------------------------------------------------------------------------------------------------------
 	// get all users
@@ -146,6 +154,11 @@ public class FalconService {
 	// get all states
 	public List<State> getAllState(){
 		return entityManager.get().createNamedQuery("State.findAll", State.class).getResultList();
+	}
+	
+	// get all states in ascending order
+	public List<State> getAllStateASC(){
+		return entityManager.get().createNamedQuery("State.findAllASC", State.class).getResultList();
 	}
 	
 	// get state object by state name

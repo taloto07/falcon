@@ -58,13 +58,13 @@
     </auth-constraint>
   </security-constraint>
   
-  <security-constraint>
+  <!-- <security-constraint>
   	<web-resource-collection>
   		<web-resource-name>Owner Register for Drivers</web-resource-name>
-  		<url-pattern>/register_driver</url-pattern>
+  		<url-pattern>/register-driver</url-pattern>
   	</web-resource-collection>
   	<auth-constraint>
   		<role-name>role_owner</role-name>
   	</auth-constraint>
-  </security-constraint>
+  </security-constraint> -->
 </web-app>

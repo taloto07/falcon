@@ -16,10 +16,10 @@ public class ValidateCar {
 		
 		Car car = new Car();
 		car.setManufacturer("Apple");
-		car.setLicensePlate("afd");
+		car.setLicensePlate("afd45");
 		car.setSitCount(2);
 		car.setPassword("12345678");
-		car.setConfirmPassword("12345678");
+		car.setConfirmPassword("123456780");
 		car.setCreditCard("tex");
 		
 		Set<ConstraintViolation<Car>> validatorCar = validator.validate(car);

@@ -30,8 +30,8 @@ public class MainModule extends ServletModule{
 		bind(LogoutServlet.class).in(Singleton.class);
 		bind(RegisterDriverServlet.class).in(Singleton.class);
 		
-		serve("/").with(DispatchServlet.class);
 		serve("*.html").with(DispatchServlet.class);
+		serve("/").with(DispatchServlet.class);
 		serve("/login").with(LoginServlet.class);
 		serve("/logout").with(LogoutServlet.class);
 		serve("/secure").with(TestServlet.class);
@@ -39,6 +39,6 @@ public class MainModule extends ServletModule{
 		serve("/controller").with(ControllerServlet.class);
 		serve("/view").with(ViewServlet.class);
 		serve("/signup").with(SignupServlet.class);
-		serve("/register_driver").with(RegisterDriverServlet.class);
+		serve("/register-driver").with(RegisterDriverServlet.class);
 	}
 }

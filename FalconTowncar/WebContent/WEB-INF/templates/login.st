@@ -1,4 +1,4 @@
-login(errorMessage)::="
+login(errorMessage, contextPath)::="
 <div class='container'>
 	<div class='jumbotron'>
 		$if(errorMessage)$
