@@ -28,6 +28,20 @@ public class RegistrationServlet extends BaseServlet {
 		STGroup templates = this.getSTGroup();
 		ST page = templates.getInstanceOf("template");
 		ST body = templates.getInstanceOf("registration");
+		
+		// add javascript to template
+		ST script = templates.getInstanceOf("javascript");
+		script.add("contextPath", contextPath);
+		script.add("filename", "bootstrap-datepicker.js");
+		String datePicker = script.render();
+				
+		script.remove("filename");
+		script.add("filename", "start-date-picker-script.js");
+		String startDatePicker = script.render();
+				// end adding javascript
+		
+		page.add("script", datePicker + startDatePicker);
+		
 		body.add("contextPath", contextPath);
 		page.add("contextPath", contextPath);
 		page.add("title", "Registration");
