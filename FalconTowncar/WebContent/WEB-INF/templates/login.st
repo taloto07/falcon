@@ -31,7 +31,7 @@ login(errorMessage, contextPath)::="
 			
 			<div class='form-group'>
 	  				<div class='col-sm-offset-2 col-sm-10'>
-	  					Don't have account yet. <a href='$contextPath$signup'>sing up here!</a>	
+	  					Don't have account yet. <a href='$contextPath$registration'>sing up here!</a>	
 	  				</div>
 			</div>
 	  	</form>

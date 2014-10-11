@@ -62,7 +62,7 @@ registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		  	<div class='form-group'>
 		    	<label for='address' class='col-sm-2 control-label'>Address</label>
 		    	<div class='col-sm-10'>
-		    		<input type='text' class='form-control' id='address' placeholder='House number Street number' name='address'>
+		    		<input type='text' class='form-control' id='address' placeholder='House/Street number Street name' name='address'>
 		   		</div>
 		  	</div>
 		  	
