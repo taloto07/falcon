@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="makes")
-@NamedQuery(name="Make.findAll", query="SELECT m FROM Make m")
+@NamedQueries({
+	@NamedQuery(name="Make.findAll", query="SELECT m FROM Make m"),
+	@NamedQuery(name="Make.findAllASC", query="SELECT m FROM Make m ORDER BY m.name")
+})
 public class Make implements Serializable {
 	private static final long serialVersionUID = 1L;
 

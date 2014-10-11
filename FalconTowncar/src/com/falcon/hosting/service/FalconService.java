@@ -13,6 +13,8 @@ import com.falcon.hosting.doa.Country;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.Group;
 import com.falcon.hosting.doa.House;
+import com.falcon.hosting.doa.Make;
+import com.falcon.hosting.doa.Model;
 import com.falcon.hosting.doa.State;
 import com.falcon.hosting.doa.Street;
 import com.falcon.hosting.doa.User;
@@ -245,4 +247,30 @@ public class FalconService {
 		return true;
 	}
 	//-------------------------------------------End Coordination----------------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------Make---------------------------------------------------------------------------------------------------
+	// get all vehicle makes
+	public List<Make> getAllMake(){
+		return entityManager.get().createNamedQuery("Make.findAll", Make.class).getResultList();
+	}
+	
+	// get all vehicle makes and sort
+	public List<Make> getAllMakeASC(){
+		return entityManager.get().createNamedQuery("Make.findAllASC", Make.class).getResultList();
+	}
+	
+	//--------------------------------------------------End Make-----------------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------Model--------------------------------------------------------------------------------------------------
+	// get all vehicle makes
+	public List<Model> getAllModel(){
+		return entityManager.get().createNamedQuery("Model.findAll", Model.class).getResultList();
+	}
+	
+	// get all vehicle makes and sort
+	public List<Model> getAllModelASC(){
+		return entityManager.get().createNamedQuery("Model.findAllASC", Model.class).getResultList();
+	}
+	
+	//--------------------------------------------------End Model----------------------------------------------------------------------------------------------
 }

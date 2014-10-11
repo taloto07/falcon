@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="models")
-@NamedQuery(name="Model.findAll", query="SELECT m FROM Model m")
+@NamedQueries({
+	@NamedQuery(name="Model.findAll", query="SELECT m FROM Model m"),
+	@NamedQuery(name="Model.findAllASC", query="SELECT m FROM Model m ORDER BY m.name")
+})
 public class Model implements Serializable {
 	private static final long serialVersionUID = 1L;
 

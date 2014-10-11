@@ -1,4 +1,4 @@
-registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
+registerdriver(contextPath, errorMessage, states, makes, models, errorFirstName, errorDOB)::="
 
 <div class='container'>
 	<div class='jumbotron'>
@@ -40,7 +40,7 @@ registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		  	<div class='form-group'>
 		    	<label for='dob' class='col-sm-2 control-label'>Date of Birth</label>
 		    	<div class='col-sm-10 input-append date' id='dob-datepicker' data-date='12-02-1980' data-date-format='mm-dd-yyyy'>
-					<input size='16' type='text' placeholder='12-02-2014' id='dob' name='dob'>
+					<input size='16' type='text' placeholder='12-02-2014' id='dob' name='dob' readonly='readonly'>
 					<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
 				</div>
 		  	</div>
@@ -77,7 +77,7 @@ registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		    	<label for='state' class='col-sm-2 control-label'>State</label>
 		    	<div class='col-sm-10'>
 		    		<select type='text' class='form-control' id='state' placeholder='City' name='state'>
-		    			<option>Select</option>
+		    			<option value='select'>Select</option>
 		    			$states:{state|
 		    				<option value='$state.id$'>$state.name$</option>
 		    			}$
@@ -100,13 +100,6 @@ registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		  	</div>
 		  	
 		  	<div class='form-group'>
-		    	<label for='bankName' class='col-sm-2 control-label'>Bank Name</label>
-		    	<div class='col-sm-10'>
-		    		<input type='text' class='form-control' id='bankName' placeholder='Bank Name' name='bankName'>
-		   		</div>
-		  	</div>
-		  	
-		  	<div class='form-group'>
 		    	<label for='drivingLicense' class='col-sm-2 control-label'>Driving License</label>
 		    	<div class='col-sm-4'>
 		    		<input type='text' class='form-control' id='drivingLicense' placeholder='Driving License' name='drivingLicense'>
@@ -114,7 +107,7 @@ registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		   		
 		   		<label for='drivingLicenseExpiration' class='col-sm-2 control-label'>Expiration</label>
 		   		<div class='col-sm-4 input-append date' id='DL-datepicker' data-date='12-02-1980' data-date-format='mm-dd-yyyy'>
-		    		<input type='text' id='drivingLicenseExpiration' placeholder='Expiration' name='drivingLicenseExpiration'>
+		    		<input type='text' id='drivingLicenseExpiration' placeholder='Expiration' name='drivingLicenseExpiration' readonly='readonly'>
 		    		<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
 		   		</div>
 		  	</div>
@@ -127,8 +120,15 @@ registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		   		
 		   		<label for='DLFHExpiration' class='col-sm-2 control-label'>Expiration</label>
 		   		<div class='col-sm-4 input-append date' id='DLFH-datepicker' data-date='12-02-1980' data-date-format='mm-dd-yyyy'>
-		    		<input type='text' id='DLFHExpiration' placeholder='Expiration' name='DLFHExpiration'>
+		    		<input type='text' id='DLFHExpiration' placeholder='Expiration' name='DLFHExpiration' readonly='readonly'>
 		    		<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='bankName' class='col-sm-2 control-label'>Bank Name</label>
+		    	<div class='col-sm-10'>
+		    		<input type='text' class='form-control' id='bankName' placeholder='Bank Name' name='bankName'>
 		   		</div>
 		  	</div>
 		  	
@@ -136,6 +136,55 @@ registerdriver(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		    	<label for='backAccountNumber' class='col-sm-2 control-label'>Bank Account Number</label>
 		    	<div class='col-sm-10'>
 		    		<input type='number' class='form-control' id='backAccountNumber' placeholder='Bank Account Number' name='bankAccountNumber'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='page-header'>
+  				<h2 align='center'>Vehicle</h2>
+			</div>
+			
+		  	<div class='form-group'>
+		    	<label for='vehicleMake' class='col-sm-2 control-label'>Make</label>
+		    	<div class='col-sm-10'>
+			    	<select type='text' class='form-control' id='vehicleMake' placeholder='Make' name='vehicleMake'>
+			    			<option value='select'>Select</option>
+			    			$makes:{make|
+			    				<option value='$make.id$'>$make.name$</option>
+			    			}$
+			    	</select>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='vehicleModel' class='col-sm-2 control-label'>Model</label>
+		    	<div class='col-sm-10'>
+			    	<select type='text' class='form-control' id='vehicleModel' placeholder='Model' name='vehicleModel'>
+			    			<option value='select'>Select</option>
+			    			$models:{model|
+			    				<option value='$model.id$'>$model.name$</option>
+			    			}$
+			    	</select>
+		    	</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='vehicleYear' class='col-sm-2 control-label'>Year</label>
+		    	<div class='col-sm-10'>
+		    		<input type='number' class='form-control' id='vehicleYear' placeholder='Year' name='vehicleYear'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='vehicleLicensePlate' class='col-sm-2 control-label'>License Plate</label>
+		    	<div class='col-sm-10'>
+		    		<input type='text' class='form-control' id='vehicleLicensePlate' placeholder='License Plate' name='vehicleLicensePlate'>
+		   		</div>
+		  	</div>
+		  	
+		  	<div class='form-group'>
+		    	<label for='vehicleCapacity' class='col-sm-2 control-label'>Capacity</label>
+		    	<div class='col-sm-10'>
+		    		<input type='number' class='form-control' id='vehicleCapacity' placeholder='Capacity' name='vehicleCapacity'>
 		   		</div>
 		  	</div>
 		  	
