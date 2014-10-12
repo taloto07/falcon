@@ -99,6 +99,7 @@ registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		   		</div>
 		  	</div>
 		  	
+		  	<!-- Bank account info shouldn't be requested on signing up
 		  	<div class='form-group'>
 		    	<label for='bankName' class='col-sm-2 control-label'>Bank Name</label>
 		    	<div class='col-sm-10'>
@@ -112,7 +113,7 @@ registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		    		<input type='number' class='form-control' id='backAccountNumber' placeholder='Bank Account Number' name='bankAccountNumber'>
 		   		</div>
 		  	</div>
-		  	
+		  	//-->
 		  	<div class='form-group'>
 				<div class='col-sm-offset-2 col-sm-10'>
 	  				<button type='submit' class='btn btn-default'>Register</button>
