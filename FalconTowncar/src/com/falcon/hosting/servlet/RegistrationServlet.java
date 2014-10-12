@@ -2,6 +2,7 @@ package com.falcon.hosting.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
+import com.falcon.hosting.doa.State;
 import com.falcon.hosting.doa.User;
 
 public class RegistrationServlet extends BaseServlet {
@@ -40,13 +42,19 @@ public class RegistrationServlet extends BaseServlet {
 		script.remove("filename");
 		script.add("filename", "start-date-picker-script.js");
 		String startDatePicker = script.render();
-				// end adding javascript
+		// end adding javascript
+		
+		List<State> states = service.getAllStateASC();
+		for (State state: states){
+			state.setAbbreviation(state.getAbbreviation().toUpperCase());
+		}
 		
 		page.add("script", datePicker + startDatePicker);
 		
 		body.add("contextPath", contextPath);
 		page.add("contextPath", contextPath);
 		page.add("title", "Registration");
+		body.add("states", states);
 		page.add("body", body.render());
 		
 		out.print(page.render());
@@ -69,7 +77,6 @@ public class RegistrationServlet extends BaseServlet {
 		System.out.println(inputPassword);
 		System.out.println(inputConfirmPassword);
 		System.out.println(phoneNumber);
-		System.out.println("Information print");
 		//User u = new User();
 		//service.addUser(u);
 		
@@ -119,7 +126,6 @@ public class RegistrationServlet extends BaseServlet {
 		
 		out.write(page.render());
 		out.flush();*/
-		doGet( request,  response);
 	}
 
 }
