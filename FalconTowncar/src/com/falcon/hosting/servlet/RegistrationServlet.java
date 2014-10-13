@@ -119,11 +119,13 @@ public class RegistrationServlet extends BaseServlet {
 		String inputPassword = request.getParameter("password");
 		String inputConfirmPassword = request.getParameter("confirmPassword");
 		String phoneNumber = request.getParameter("phoneNumber");
+		
 		//validate password/email match
 		if(! inputPassword.equals(inputConfirmPassword))
 			return "Passwords do not match";
 		else if(! email.equals(confirmEmail))
 			return "Emails do not match";
+		
 		//create a new user with the database attributes
 		User u = new User();
 		u.setFirstname(firstName);
