@@ -62,13 +62,13 @@ public class RegistrationServlet extends BaseServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//process data from from
-		if(processInfo(request, response))
-			//redirect back to login page
+		String errorMessage = processInfo(request, response);
+		//process data from form
+		if(errorMessage.length()==0)
+			//redirect back to login page (successfully added user)
 			response.sendRedirect("/FalconTowncar/login");
 		else {
-			//Emails / Passwords did not match
-			String errorMessage = "Passwords or Emails didn't match";
+			//Emails / Passwords did not match, display error
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			
@@ -110,7 +110,7 @@ public class RegistrationServlet extends BaseServlet {
 		}
 	}
 	
-	private boolean processInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private String processInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//store all data from the form in String variables
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");
@@ -121,9 +121,9 @@ public class RegistrationServlet extends BaseServlet {
 		String phoneNumber = request.getParameter("phoneNumber");
 		//validate password/email match
 		if(! inputPassword.equals(inputConfirmPassword))
-			return false;
+			return "Passwords do not match";
 		else if(! email.equals(confirmEmail))
-			return false;
+			return "Emails do not match";
 		//create a new user with the database attributes
 		User u = new User();
 		u.setFirstname(firstName);
@@ -132,7 +132,10 @@ public class RegistrationServlet extends BaseServlet {
 		u.setPassword(inputPassword);
 		u.setPhoneNumber(phoneNumber);
 		//attempt to add user to the database
-		return service.addUser(u);
+		if( service.addUser(u)) {
+			return "";
+		} else
+			return "A user with that e-mail already exists";
 	}
 	
 }
