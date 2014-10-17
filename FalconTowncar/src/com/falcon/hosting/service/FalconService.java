@@ -13,11 +13,14 @@ import com.falcon.hosting.doa.Country;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.Group;
 import com.falcon.hosting.doa.House;
+import com.falcon.hosting.doa.License;
+import com.falcon.hosting.doa.LicenseType;
 import com.falcon.hosting.doa.Make;
 import com.falcon.hosting.doa.Model;
 import com.falcon.hosting.doa.State;
 import com.falcon.hosting.doa.Street;
 import com.falcon.hosting.doa.User;
+import com.falcon.hosting.doa.Vehicle;
 import com.falcon.hosting.doa.Zipcode;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -72,6 +75,15 @@ public class FalconService {
 		}
 	}
 	
+	// remove user
+	public boolean removeUser(User user){
+		if (user == null) return false;
+		entityManager.get().getTransaction().begin();
+		entityManager.get().remove(user);
+		entityManager.get().getTransaction().commit();
+		return true;
+	}
+	
 	//-------------------------------------------End User------------------------------------------------------------------------------------------------------
 	
 	
@@ -102,6 +114,13 @@ public class FalconService {
 		return entityManager.get().createNamedQuery("Driver.findVehicleCapacityGreaterThanOrEqual", Driver.class).setParameter("capacity", capacity)
 				.getResultList();
 	}
+	
+	// add driver
+	public void addDriver(Driver driver){
+		entityManager.get().getTransaction().begin();;
+		entityManager.get().persist(driver);
+		entityManager.get().getTransaction().commit();
+	}
 	//-------------------------------------------End Driver----------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------House---------------------------------------------------------------------------------------------------------
@@ -118,6 +137,13 @@ public class FalconService {
 			return null;
 		}
 	}
+	
+	// add house number
+	public void addHouse(House house){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(house);
+		entityManager.get().getTransaction().commit();
+	}
 	//-------------------------------------------End House-----------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------Street--------------------------------------------------------------------------------------------------------
@@ -127,12 +153,19 @@ public class FalconService {
 	}
 	
 	// get street object by street name
-	public House getStreetByName(String name){
+	public Street getStreetByName(String name){
 		try{
-			return entityManager.get().createNamedQuery("Street.findByName", House.class).setParameter("name", name).getSingleResult();
+			return entityManager.get().createNamedQuery("Street.findByName", Street.class).setParameter("name", name).getSingleResult();
 		} catch(NoResultException e){
 			return null;
 		}
+	}
+	
+	// add street
+	public void addStreet(Street street){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(street);
+		entityManager.get().getTransaction().commit();
 	}
 	//-------------------------------------------End Street----------------------------------------------------------------------------------------------------
 	
@@ -150,6 +183,13 @@ public class FalconService {
 			return null;
 		}
 	}
+	
+	// add city
+	public void addCity(City city){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(city);
+		entityManager.get().getTransaction().commit();
+	}	
 	//-------------------------------------------End City------------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------State---------------------------------------------------------------------------------------------------------
@@ -161,6 +201,15 @@ public class FalconService {
 	// get all states in ascending order
 	public List<State> getAllStateASC(){
 		return entityManager.get().createNamedQuery("State.findAllASC", State.class).getResultList();
+	}
+	
+	// get state object by state id
+	public State getStateById(int id){
+		try{
+			return entityManager.get().createNamedQuery("State.findById", State.class).setParameter("id", id).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
 	}
 	
 	// get state object by state name
@@ -187,6 +236,13 @@ public class FalconService {
 			return null;
 		}
 	}
+	
+	// add zipcode
+	public void addZipcode(Zipcode zipcode){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(zipcode);
+		entityManager.get().getTransaction().commit();
+	}
 	//-------------------------------------------End State-----------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------Country-------------------------------------------------------------------------------------------------------
@@ -209,6 +265,13 @@ public class FalconService {
 	// get all addresses
 	public List<Address> getAllAddress(){
 		return entityManager.get().createNamedQuery("Address.findAll", Address.class).getResultList();
+	}
+	
+	// add address
+	public void addAddress(Address address){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(address);
+		entityManager.get().getTransaction().commit();
 	}
 	//-------------------------------------------End Address---------------------------------------------------------------------------------------------------
 	
@@ -259,6 +322,15 @@ public class FalconService {
 		return entityManager.get().createNamedQuery("Make.findAllASC", Make.class).getResultList();
 	}
 	
+	// get make by id
+	public Make getMakeById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Make.findById", Make.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	
 	//--------------------------------------------------End Make-----------------------------------------------------------------------------------------------
 	
 	//--------------------------------------------------Model--------------------------------------------------------------------------------------------------
@@ -272,5 +344,68 @@ public class FalconService {
 		return entityManager.get().createNamedQuery("Model.findAllASC", Model.class).getResultList();
 	}
 	
+	// get model by id
+	public Model getModelById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Model.findById", Model.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	
 	//--------------------------------------------------End Model----------------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------Vehicle------------------------------------------------------------------------------------------------
+	// get all vehicle
+	public List<Vehicle> getAllVehicle(){
+		return entityManager.get().createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
+	}
+	
+	// get vehicle by id
+	public Vehicle getVehicleById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Vehicle.findById", Vehicle.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	
+	// add vehicle to database
+	public void addVehicle(Vehicle vehicle){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(vehicle);
+		entityManager.get().getTransaction().commit();
+	}
+	//--------------------------------------------------End Vehicle--------------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------License Type-------------------------------------------------------------------------------------------
+	// get all licensetype
+	public List<LicenseType> getAllLicenseType(){
+		return entityManager.get().createNamedQuery("LicenseType.findAll", LicenseType.class).getResultList();
+	}
+	
+	// get licensetype by type
+	public LicenseType getLicenseTypeByType(String type){
+		try{
+			return entityManager.get().createNamedQuery("LicenseType.findByType", LicenseType.class).setParameter("type", type).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		
+	}
+	//--------------------------------------------------End License Type---------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------License------------------------------------------------------------------------------------------------
+	//get all licenses
+	public List<License> getAllLicense(){
+		return entityManager.get().createNamedQuery("Lincense.findAll", License.class).getResultList();
+	}
+	
+	// add license
+	public void addLicense(License license){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(license);
+		entityManager.get().getTransaction().commit();
+	}
+	//--------------------------------------------------End License--------------------------------------------------------------------------------------------
 }

@@ -8,15 +8,12 @@ public class SHA256Conv {
 	public String toConvert = "";
 	private String converted = "";
 	
-	//To string returns converted hex string
-	public String toString() {
-		return converted;
-	}
 	//Constructor converts string to hex via sha 256
 	public SHA256Conv(String s) {
 		toConvert = s;
 		converted = convertStrToSHA256(s);
 	}
+	
 	//Algorithm for converting string to hex
 	private String convertStrToSHA256(String s) {
 		if(s.length()==0) return "";
@@ -40,14 +37,9 @@ public class SHA256Conv {
         }
 		return sb.toString();
 	}
-/*//Main for testing
-	public static void main(String[] args) {
-		String a = "hello";
-		
-		SHA256Conv b = new SHA256Conv(a);
-		String pass = b.toString();
-		System.out.println(b.toConvert);
-		System.out.println(pass);
+	
+	//To string returns converted hex string
+	public String toString() {
+		return converted;
 	}
-*/
 }

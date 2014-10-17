@@ -59,7 +59,7 @@ public class Driver implements Serializable {
 
 	//bi-directional many-to-one association to Licens
 	@OneToMany(mappedBy="driver")
-	private List<Licens> licenses;
+	private List<License> licenses;
 
 	//bi-directional many-to-one association to Vehicle
 	@OneToMany(mappedBy="driver2")
@@ -162,22 +162,22 @@ public class Driver implements Serializable {
 		return job;
 	}
 
-	public List<Licens> getLicenses() {
+	public List<License> getLicenses() {
 		return this.licenses;
 	}
 
-	public void setLicenses(List<Licens> licenses) {
+	public void setLicenses(List<License> licenses) {
 		this.licenses = licenses;
 	}
 
-	public Licens addLicens(Licens licens) {
+	public License addLicens(License licens) {
 		getLicenses().add(licens);
 		licens.setDriver(this);
 
 		return licens;
 	}
 
-	public Licens removeLicens(Licens licens) {
+	public License removeLicens(License licens) {
 		getLicenses().remove(licens);
 		licens.setDriver(null);
 

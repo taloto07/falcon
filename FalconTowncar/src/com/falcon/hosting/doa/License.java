@@ -11,8 +11,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name="licenses")
-@NamedQuery(name="Licens.findAll", query="SELECT l FROM Licens l")
-public class Licens implements Serializable {
+@NamedQuery(name="License.findAll", query="SELECT l FROM License l")
+public class License implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,7 +35,7 @@ public class Licens implements Serializable {
 	@JoinColumn(name="license_type_id")
 	private LicenseType licenseType;
 
-	public Licens() {
+	public License() {
 	}
 
 	public int getId() {

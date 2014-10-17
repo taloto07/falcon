@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name="models")
 @NamedQueries({
 	@NamedQuery(name="Model.findAll", query="SELECT m FROM Model m"),
-	@NamedQuery(name="Model.findAllASC", query="SELECT m FROM Model m ORDER BY m.name")
+	@NamedQuery(name="Model.findAllASC", query="SELECT m FROM Model m ORDER BY m.name"),
+	@NamedQuery(name="Model.findById", query="SELECT m FROM Model m WHERE m.id = :id")
 })
 public class Model implements Serializable {
 	private static final long serialVersionUID = 1L;

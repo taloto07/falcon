@@ -18,7 +18,7 @@
 		<class>com.falcon.hosting.doa.House</class>
 		<class>com.falcon.hosting.doa.Job</class>
 		<class>com.falcon.hosting.doa.LicenseType</class>
-		<class>com.falcon.hosting.doa.Licens</class>
+		<class>com.falcon.hosting.doa.License</class>
 		<class>com.falcon.hosting.doa.Make</class>
 		<class>com.falcon.hosting.doa.Model</class>
 		<class>com.falcon.hosting.doa.Rate</class>

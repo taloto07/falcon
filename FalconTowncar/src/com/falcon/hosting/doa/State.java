@@ -14,6 +14,7 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="State.findAll", query="SELECT s FROM State s"),
 	@NamedQuery(name="State.findByName", query="SELECT s FROM State s WHERE s.name = :name"),
+	@NamedQuery(name="State.findById", query="SELECT s FROM State s WHERE s.id = :id"),
 	@NamedQuery(name="State.findAllASC", query="SELECT s FROM State s ORDER BY s.name ASC")
 })
 

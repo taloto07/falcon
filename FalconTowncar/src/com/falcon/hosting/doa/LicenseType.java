@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="license_types")
-@NamedQuery(name="LicenseType.findAll", query="SELECT l FROM LicenseType l")
+@NamedQueries({
+	@NamedQuery(name="LicenseType.findAll", query="SELECT l FROM LicenseType l"),
+	@NamedQuery(name="LicenseType.findByType", query="SELECT l FROM LicenseType l WHERE l.type = :type")
+})
 public class LicenseType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +26,7 @@ public class LicenseType implements Serializable {
 
 	//bi-directional many-to-one association to Licens
 	@OneToMany(mappedBy="licenseType")
-	private List<Licens> licenses;
+	private List<License> licenses;
 
 	public LicenseType() {
 	}
@@ -44,22 +47,22 @@ public class LicenseType implements Serializable {
 		this.type = type;
 	}
 
-	public List<Licens> getLicenses() {
+	public List<License> getLicenses() {
 		return this.licenses;
 	}
 
-	public void setLicenses(List<Licens> licenses) {
+	public void setLicenses(List<License> licenses) {
 		this.licenses = licenses;
 	}
 
-	public Licens addLicens(Licens licens) {
+	public License addLicens(License licens) {
 		getLicenses().add(licens);
 		licens.setLicenseType(this);
 
 		return licens;
 	}
 
-	public Licens removeLicens(Licens licens) {
+	public License removeLicens(License licens) {
 		getLicenses().remove(licens);
 		licens.setLicenseType(null);
 
