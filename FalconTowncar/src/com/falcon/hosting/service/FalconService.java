@@ -10,6 +10,7 @@ import com.falcon.hosting.doa.City;
 import com.falcon.hosting.doa.Comment;
 import com.falcon.hosting.doa.Coordination;
 import com.falcon.hosting.doa.Country;
+import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.Group;
 import com.falcon.hosting.doa.House;
@@ -122,6 +123,20 @@ public class FalconService {
 		entityManager.get().getTransaction().commit();
 	}
 	//-------------------------------------------End Driver----------------------------------------------------------------------------------------------------
+	
+	//-------------------------------------------Customer------------------------------------------------------------------------------------------------------
+	// get all customers
+	public List<Customer> getAllCustomer(){
+		return entityManager.get().createNamedQuery("Customer.findAll", Customer.class).getResultList();
+	}
+	
+	// add customer
+	public void addCustomer(Customer customer){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(customer);
+		entityManager.get().getTransaction().commit();
+	}
+	//-------------------------------------------End Customer--------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------House---------------------------------------------------------------------------------------------------------
 	// get all houses
