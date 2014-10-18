@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
+import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.State;
 import com.falcon.hosting.doa.User;
+import com.falcon.hosting.test.validator.SHA256Conv;
 
 public class RegistrationServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
@@ -131,13 +133,18 @@ public class RegistrationServlet extends BaseServlet {
 		u.setFirstname(firstName);
 		u.setLastname(lastName);
 		u.setEmail(email);
-		u.setPassword(inputPassword);
+		
+		//Hashing password to store in database
+		SHA256Conv convPass = new SHA256Conv(inputPassword);
+		u.setPassword(convPass.getConvPass());
 		u.setPhoneNumber(phoneNumber);
 		//attempt to add user to the database
-		if( service.addUser(u)) {
-			return "";
-		} else
-			return "A user with that e-mail already exists";
+		if(! service.addUser(u)) {
+			return "A user with that e-mail already exists";			
+		} 
+		Customer c = new Customer();
+		c.setUser(u);
+		return "";
 	}
 	
 }

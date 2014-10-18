@@ -38,8 +38,18 @@ public class SHA256Conv {
 		return sb.toString();
 	}
 	
+	public String getConvPass() {
+		return converted;
+	}
+	
 	//To string returns converted hex string
 	public String toString() {
-		return converted;
+		return toConvert + " converts to \n" + converted + "\nusing " + algorithm;
+		
+	}
+
+	public static void main(String[] args) {
+		SHA256Conv yes = new SHA256Conv("Yes");
+		System.out.println(yes);
 	}
 }
