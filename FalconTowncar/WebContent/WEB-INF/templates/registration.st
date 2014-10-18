@@ -7,7 +7,9 @@ registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		$endif$
 		
 		<form class='form-horizontal' role='form' method='post' action='$contextPath$registration'>
-			<h1><center>Register User</center></h1>
+			<h1><center>Registration Form</center></h1>
+			<h3><center>Please fill out the following items</center></h3>
+			<br>
 			
 			<div class='form-group $errorFirstName$'>
 		    	<label for='firstname' class='col-sm-2 control-label'>First Name</label>
@@ -59,6 +61,7 @@ registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		   		</div>
 		  	</div>
 		  	
+		  	<!-- This is not a part of Registration page, but rather in Edit Info Page.
 		  	<div class='form-group'>
 		    	<label for='address' class='col-sm-2 control-label'>Address</label>
 		    	<div class='col-sm-10'>
@@ -91,7 +94,7 @@ registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		    		<input type='number' class='form-control' id='zipcode' placeholder='Zipcode' name='zipcode'>
 		   		</div>
 		  	</div>
-		  	
+		  	-->
 		  	<div class='form-group'>
 		    	<label for='phoneNumber' class='col-sm-2 control-label'>Phone Number</label>
 		    	<div class='col-sm-10'>
