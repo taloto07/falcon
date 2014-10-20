@@ -2,6 +2,7 @@ package com.falcon.hosting.guice;
 
 import com.falcon.hosting.servlet.ChamServlet;
 import com.falcon.hosting.servlet.ControllerServlet;
+import com.falcon.hosting.servlet.DashBoardServlet;
 import com.falcon.hosting.servlet.DispatchServlet;
 import com.falcon.hosting.servlet.LoginServlet;
 import com.falcon.hosting.servlet.LogoutServlet;
@@ -31,6 +32,7 @@ public class MainModule extends ServletModule{
 		bind(LogoutServlet.class).in(Singleton.class);
 		bind(RegisterDriverServlet.class).in(Singleton.class);
 		bind(RegistrationServlet.class).in(Singleton.class);
+		bind(DashBoardServlet.class).in(Singleton.class);
 		
 		serve("*.html").with(DispatchServlet.class);
 		serve("/").with(DispatchServlet.class);
@@ -43,5 +45,6 @@ public class MainModule extends ServletModule{
 		serve("/signup").with(SignupServlet.class);
 		serve("/register-driver").with(RegisterDriverServlet.class);
 		serve("/registration").with(RegistrationServlet.class);
+		serve("/dashboard/*").with(DashBoardServlet.class);
 	}
 }

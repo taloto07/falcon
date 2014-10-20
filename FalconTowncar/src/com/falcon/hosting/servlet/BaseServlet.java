@@ -53,6 +53,7 @@ public class BaseServlet extends HttpServlet {
 			String username = user.getFirstname() + " " + user.getLastname();
 			page.add("username", username);
 			page.add("login", "true");
+			page.add("useremail", user.getEmail());
 		}
 	}
 }

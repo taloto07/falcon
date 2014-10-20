@@ -1,4 +1,5 @@
-template(contextPath, title, body, home, about, contact, history, login, username, script)::="
+template(contextPath, title, body, home, about, contact, history, login, username, script,
+useremail)::="
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -69,7 +70,12 @@ template(contextPath, title, body, home, about, contact, history, login, usernam
           </ul>
           <ul class='nav navbar-nav navbar-right'>
           	$if(login)$
-          		<li><a href='#'>$username$</a></li>
+          		<li class='dropdown'>
+              		<a href='#' class='dropdown-toggle' data-toggle='dropdown'>$username$ <span class='caret'></span></a>
+              		<ul class='dropdown-menu' role='menu'>
+                		<li><a href='$contextPath$dashboard/$useremail$'>Dashboard</a></li>
+              		</ul>
+            	</li>
           		<li><a href='$contextPath$logout'>Log Out</a></li>
           	$else$
           		<li><a href='$contextPath$login'>Log In</a></li>

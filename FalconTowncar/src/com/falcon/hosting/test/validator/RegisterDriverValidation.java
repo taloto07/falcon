@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,15 +13,10 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
-
-import com.falcon.hosting.doa.User;
-import com.falcon.hosting.service.FalconService;
 
 public class RegisterDriverValidation {
 	public Map<String, String> fieldName = new HashMap<String, String>();
 
-	
 	@NotNull
 	@NotEmpty
 	private String firstname;
@@ -118,12 +111,14 @@ public class RegisterDriverValidation {
 	
 	@NotNull
 	@NotEmpty
-	@Size(min = 4, max = 5)
+	@Size(min = 4, max=5)
+	@Min(1)
 	@Digits(fraction = 0, integer = 11)
 	private String vehicleYear;
 	
 	@NotNull
 	@NotEmpty
+	@Size(max=15)
 	private String licensePlate;
 	
 	@NotNull
