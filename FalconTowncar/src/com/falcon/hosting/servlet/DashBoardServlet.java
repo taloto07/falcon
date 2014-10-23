@@ -3,6 +3,7 @@ package com.falcon.hosting.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -55,6 +56,7 @@ public class DashBoardServlet extends BaseServlet {
 			System.out.println(user.getDriver().getBankName());
 		}else{
 			body = proccessOwner(request, response);
+			page.add("owner", "owner user");
 		}
 		
 		this.checkLogin(page, request);
@@ -74,11 +76,30 @@ public class DashBoardServlet extends BaseServlet {
 		ST body = templates.getInstanceOf("dashboard_driver");
 		body.add("contextPath", contextPath);
 		
-		String email = getRequestId(request);
-		
+		String email = request.getRemoteUser();
 		User user = service.getUserByEmail(email);
 		
-		if (user == null || !request.getRemoteUser().equalsIgnoreCase(email)){
+		if (user == null){
+			body.add("errorMessage", "You are not authorized!");
+		}else{
+			body.add("user", user);
+		}
+		
+		return body;
+	}
+	
+	// proccess customer's request
+	protected ST proccessCustomer(HttpServletRequest request, HttpServletResponse response){
+		String contextPath = this.getContextPath();
+		
+		STGroup templates = this.getSTGroup();
+		ST body = templates.getInstanceOf("dashboard_customer");
+		body.add("contextPath", contextPath);
+		
+		String email = request.getRemoteUser(); 
+		User user = service.getUserByEmail(email);
+		
+		if (user == null){
 			body.add("errorMessage", "You are not authorized!");
 		}else{
 			body.add("user", user);
@@ -95,32 +116,14 @@ public class DashBoardServlet extends BaseServlet {
 		ST body = templates.getInstanceOf("dashboard_owner");
 		body.add("contextPath", contextPath);
 		
-		String email = getRequestId(request);
-		
+		String email = request.getRemoteUser(); 
 		User user = service.getUserByEmail(email);
+		List<User> users = service.getAllUser();
 		
-		if (user == null || !request.getRemoteUser().equalsIgnoreCase(email)){
+		if (user == null){
 			body.add("errorMessage", "You are not authorized!");
-		}
-	
-		return body;
-	}
-
-	// proccess customer's request
-	protected ST proccessCustomer(HttpServletRequest request, HttpServletResponse response){
-		String contextPath = this.getContextPath();
-		
-		STGroup templates = this.getSTGroup();
-		ST body = templates.getInstanceOf("dashboard_customer");
-		body.add("contextPath", contextPath);
-		
-		String requestId = getRequestId(request);
-		
-		User user = service.getUserByEmail(request.getRemoteUser());
-		int userId = user.getId();
-		
-		if (!StringUtils.isNumeric(requestId) || userId != Integer.parseInt(requestId)){
-			body.add("errorMessage", "You are not authorized!");
+		}else{
+			body.add("users", users);
 		}
 		
 		return body;

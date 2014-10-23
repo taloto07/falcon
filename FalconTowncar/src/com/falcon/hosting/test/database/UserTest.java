@@ -31,35 +31,34 @@ public class UserTest {
 	
 	@Test
 	public void addUser(){
-//		User user = new User();
-//		user.setFirstname("test");
-//		user.setLastname("test");
-//		user.setEmail("test@test.com");
-//		user.setPassword("123446");
-//		user.setPhoneNumber("2068164969");
-//		
-//		Group driverGroup = service.getGroupByName("driver");
-//		List<Group> groups = new ArrayList<Group>();
-//		groups.add(driverGroup);
-//		
-//		user.setGroups(groups);
-//		service.addUser(user);
+		User user = new User();
+		user.setFirstname("test");
+		user.setLastname("test");
+		user.setEmail("test@test.com");
+		user.setPassword("123446");
+		
+		Group driverGroup = service.getGroupByName("driver");
+		List<Group> groups = new ArrayList<Group>();
+		groups.add(driverGroup);
+		
+		user.setGroups(groups);
+		service.addUser(user);
+		
+		Driver driver = new Driver();
+		driver.setUser(user);
+		service.addDriver(driver);
 	}
 	
 	@Test
 	public void deleteUser(){
-		User user = service.getUserByEmail("dean.wendchester@gmail.com");
-		assertNotNull(user);
 		
-		Driver driver = user.getDriver();
-		driver.setCurrentVehicle(null);
-		service.addDriver(driver);
-		
-//		assertNull(user);
 	}
 	
 	@AfterClass
 	public static void tearDownClass(){
+		User user = service.getUserByEmail("test@test.com");
+		service.removeUser(user);
+		
 		injector = null;
 		service = null;
 	}

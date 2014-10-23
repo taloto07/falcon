@@ -54,6 +54,8 @@ public class BaseServlet extends HttpServlet {
 			page.add("username", username);
 			page.add("login", "true");
 			page.add("useremail", user.getEmail());
+			if (user.getCustomer() == null && user.getDriver() == null)
+				page.add("owner", "owner user");
 		}
 	}
 }

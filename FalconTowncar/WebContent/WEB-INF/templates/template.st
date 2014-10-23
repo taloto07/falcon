@@ -1,5 +1,5 @@
 template(contextPath, title, body, home, about, contact, history, login, username, script,
-useremail)::="
+useremail, owner)::="
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -73,7 +73,10 @@ useremail)::="
           		<li class='dropdown'>
               		<a href='#' class='dropdown-toggle' data-toggle='dropdown'>$username$ <span class='caret'></span></a>
               		<ul class='dropdown-menu' role='menu'>
-                		<li><a href='$contextPath$dashboard/$useremail$'>Dashboard</a></li>
+                		<li><a href='$contextPath$dashboard'>Dashboard</a></li>
+                		$if(owner)$
+                			<li><a href='$contextPath$register-driver'>Driver Registration</a></li>
+                		$endif$
               		</ul>
             	</li>
           		<li><a href='$contextPath$logout'>Log Out</a></li>

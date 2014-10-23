@@ -133,6 +133,7 @@ public class RegisterDriverValidation {
 	@NotEmpty
 	private String bankAccountNumber;
 	
+	// constructor
 	public RegisterDriverValidation(HttpServletRequest request){
 		this.setFirstname(request.getParameter("firstname"));
 		this.setLastname(request.getParameter("lastname"));
@@ -159,6 +160,11 @@ public class RegisterDriverValidation {
 		this.setCapacity(request.getParameter("vehicleCapacity"));
 		
 		fieldName.put("emailExist", "Email");
+	}
+	
+	// contructor
+	public RegisterDriverValidation(){
+		
 	}
 
 	public String getFirstname() {
