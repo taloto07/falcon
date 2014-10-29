@@ -37,6 +37,8 @@ public class Driver implements Serializable {
 	private byte driving;
 
 	private byte shift;
+	
+	private String image;
 
 	//bi-directional many-to-one association to Address
 	@ManyToOne
@@ -204,6 +206,14 @@ public class Driver implements Serializable {
 		vehicle.setDriver2(null);
 
 		return vehicle;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

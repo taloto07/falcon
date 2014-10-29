@@ -2,9 +2,10 @@ package com.falcon.hosting.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
+import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.User;
+import com.falcon.hosting.doa.Vehicle;
 
 
 public class DashBoardServlet extends BaseServlet {
@@ -47,16 +50,21 @@ public class DashBoardServlet extends BaseServlet {
 		String email = request.getRemoteUser();
 		User user = service.getUserByEmail(email);
 		if (user.getCustomer() != null){ // customer 
+			
 			body = proccessCustomer(request, response);
-			System.out.println(user.getEmail());
-			System.out.println(user.getCustomer().getCreditCardNumber());
+			
 		}else if (user.getDriver() != null){// driver
+			
 			body = proccessDriver(request, response);
-			System.out.println("processDriver is called!!!!!");
-			System.out.println(user.getDriver().getBankName());
+			
 		}else{
 			body = proccessOwner(request, response);
 			page.add("owner", "owner user");
+			
+			ST script = templates.getInstanceOf("javascript");
+			script.add("contextPath", contextPath);
+			script.add("filename", "load-user-detail-info.js");
+			page.add("script", script.render());
 		}
 		
 		this.checkLogin(page, request);
@@ -76,13 +84,31 @@ public class DashBoardServlet extends BaseServlet {
 		ST body = templates.getInstanceOf("dashboard_driver");
 		body.add("contextPath", contextPath);
 		
+		// get email from logged in user
 		String email = request.getRemoteUser();
-		User user = service.getUserByEmail(email);
+		// get email from URL
+		String requestEmail = this.getRequestEmail(request);
 		
-		if (user == null){
+		// if no email from url or requested email and logged in email doesn't match
+		if (requestEmail == null || !email.equalsIgnoreCase(requestEmail)){
 			body.add("errorMessage", "You are not authorized!");
 		}else{
+			User user = service.getUserByEmail(email);
+
+			// get current vehicle
+			Vehicle currentVehicle = user.getDriver().getCurrentVehicle();
+			
+			// get all vehicles but not current vehicle
+			List<Vehicle> otherVehicles = user.getDriver().getVehicles();
+			otherVehicles.remove(currentVehicle);
+			
+			// get all jobs
+			List<Job> jobs = user.getDriver().getJobs();
+			
 			body.add("user", user);
+			body.add("currentVehicle", currentVehicle);
+			body.add("otherVehicles", otherVehicles);
+			body.add("jobs", jobs);
 		}
 		
 		return body;
@@ -90,19 +116,29 @@ public class DashBoardServlet extends BaseServlet {
 	
 	// proccess customer's request
 	protected ST proccessCustomer(HttpServletRequest request, HttpServletResponse response){
+
 		String contextPath = this.getContextPath();
 		
 		STGroup templates = this.getSTGroup();
 		ST body = templates.getInstanceOf("dashboard_customer");
 		body.add("contextPath", contextPath);
 		
-		String email = request.getRemoteUser(); 
-		User user = service.getUserByEmail(email);
+		// get email from logged in user
+		String email = request.getRemoteUser();
+		// get email from URL
+		String requestEmail = this.getRequestEmail(request);
 		
-		if (user == null){
+		// if no email from url or requested email and logged in email doesn't match
+		if (requestEmail == null || !email.equalsIgnoreCase(requestEmail)){
+			
 			body.add("errorMessage", "You are not authorized!");
+			
 		}else{
+			User user = service.getUserByEmail(email); // get user
+			List<Job> jobs = user.getCustomer().getJobs();
+			
 			body.add("user", user);
+			body.add("jobs", jobs);
 		}
 		
 		return body;
@@ -130,11 +166,15 @@ public class DashBoardServlet extends BaseServlet {
 	}
 	
 	// get user id from request object
-	protected String getRequestId(HttpServletRequest request){
+	protected String getRequestEmail(HttpServletRequest request){
 		String url = request.getRequestURI();
 		int beginIndex = url.lastIndexOf("/") + 1;
-		String id = url.substring(beginIndex);
+		String email = url.substring(beginIndex);
 		
-		return id;
+		if (StringUtils.isAlphanumeric(email)){
+			return null;
+		}
+		
+		return email;
 	}
 }

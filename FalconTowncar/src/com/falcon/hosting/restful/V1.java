@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +22,14 @@ import org.json.JSONObject;
 
 import sun.misc.BASE64Decoder;
 
+import com.falcon.hosting.doa.Address;
+import com.falcon.hosting.doa.Customer;
+import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.User;
 import com.falcon.hosting.guice.InjectorGuice;
 import com.falcon.hosting.restful.helper.UploadImageHelper;
 import com.falcon.hosting.restful.helper.UserFromJson;
 import com.falcon.hosting.service.FalconService;
-import com.google.android.gcm.server.Message;
-import com.google.android.gcm.server.Result;
-import com.google.android.gcm.server.Sender;
 import com.google.gson.Gson;
 
 
@@ -46,6 +47,112 @@ public class V1 {
 	@Produces(MediaType.TEXT_HTML)
 	public String getStatus(){
 		return "Restful service version 1.0";
+	}
+	
+	@Path("get-user-detail-info")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getUserDetailInfo(String data) throws JSONException{
+		JSONObject json_object = new JSONObject(data);
+		String email = json_object.getString("email");
+		
+		User user = service.getUserByEmail(email);
+		
+		Map<String, Object> responsedUser = new HashMap<String, Object>();
+		responsedUser.put("firstname", user.getFirstname());
+		responsedUser.put("lastname", user.getLastname());
+		responsedUser.put("email", user.getEmail());
+		responsedUser.put("phone", user.getPhoneNumber());
+		
+		if (user.getDriver() != null){	// driver User
+			Date dob = user.getDriver().getDate_of_birth();
+			String strDob = "";
+			if (dob != null) strDob = dob.toString();
+			
+			// get information 
+			responsedUser.put("userType", "driver");
+			responsedUser.put("dob", strDob);
+			responsedUser.put("bankAccountNumber", user.getDriver().getBankAccountNumber());
+			responsedUser.put("bankName", user.getDriver().getBankName());
+			responsedUser.put("userImage", user.getDriver().getImage());
+			
+			// get address for driver user
+			Address address = user.getDriver().getAddress();
+			String house = "";
+			String street = "";
+			String city = "";
+			String state = "";
+			String zipcode = "";
+			if (address != null){
+				house = address.getHouse().getNumber();
+				street = address.getStreet().getName();
+				city = address.getCity().getName();
+				state = address.getState().getAbbreviation();
+				zipcode = "" + address.getZipcode().getZipcode();
+			}
+			
+			responsedUser.put("house", house);
+			responsedUser.put("street", street);
+			responsedUser.put("city", city);
+			responsedUser.put("state", state);
+			responsedUser.put("zipcode", zipcode);
+			
+			List<Job> jobs = user.getDriver().getJobs();
+			List<Map> jobsList = getJobList(jobs); // get all jobs from this user
+			
+			responsedUser.put("jobs", jobsList);
+		}else{	// customer user
+			Customer customer = user.getCustomer();
+			responsedUser.put("userType", "customer");
+			responsedUser.put("creditCardNumber", customer.getCcvNumber());
+			responsedUser.put("expiration", customer.getExpiration());
+			responsedUser.put("ccv", customer.getCcvNumber());
+			responsedUser.put("zipcode", customer.getZipcode().getZipcode());
+			
+			List<Job> jobs = customer.getJobs();
+			List<Map> jobsList = getJobList(jobs);
+			
+			responsedUser.put("jobs", jobsList);
+		}
+		
+		Gson gson = new Gson();
+		
+		return gson.toJson(responsedUser);
+	}
+	
+	private List<Map> getJobList(List<Job> jobs){
+		List<Map> jobsList = new ArrayList<Map>();
+		
+		for (Job job: jobs){
+			Map<String, String> jobsMap = new HashMap<String, String>();
+			
+			String customerFirstname = job.getCustomer().getUser().getFirstname();
+			String customerLastname = job.getCustomer().getUser().getLastname();
+			String customerEmail = job.getCustomer().getUser().getEmail();
+			
+			String driverFirstname = job.getDriver().getUser().getFirstname();
+			String driverLastname = job.getDriver().getUser().getLastname();
+			String driverEmail = job.getDriver().getUser().getEmail();
+			
+			String distance = "" + job.getDistance();
+			String cost = "" + job.getCost();
+			String date = job.getDate().toString();
+			String tip = "" + job.getTip();
+			
+			jobsMap.put("customerName", customerFirstname + " " + customerLastname);
+			jobsMap.put("customerEmail", customerEmail);
+			jobsMap.put("driverEmail", driverEmail);
+			jobsMap.put("driverName", driverFirstname + " " + driverLastname);
+			jobsMap.put("distance", distance);
+			jobsMap.put("cost", cost);
+			jobsMap.put("date", date);
+			jobsMap.put("tip", tip);
+			
+			jobsList.add(jobsMap);
+		}
+		
+		return jobsList;
 	}
 	
 	@Path("shareGCMRegId")

@@ -45,6 +45,6 @@ public class MainModule extends ServletModule{
 		serve("/signup").with(SignupServlet.class);
 		serve("/register-driver").with(RegisterDriverTempServlet.class);
 		serve("/registration").with(RegistrationServlet.class);
-		serve("/dashboard").with(DashBoardServlet.class);
+		serve("/dashboard/*").with(DashBoardServlet.class);
 	}
 }
