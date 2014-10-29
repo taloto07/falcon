@@ -155,6 +155,23 @@ public class V1 {
 		return jobsList;
 	}
 	
+	@Path("get-all-jobs")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllJob(String data){
+		Map<String, Object> responsedUser = new HashMap<String, Object>();
+		
+		List<Job> jobs = service.getAllJob();
+		List<Map> jobsList = getJobList(jobs);
+		
+		responsedUser.put("jobs", jobsList);
+		
+		Gson gson = new Gson();
+		
+		return gson.toJson(responsedUser);
+	}
+	
 	@Path("shareGCMRegId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

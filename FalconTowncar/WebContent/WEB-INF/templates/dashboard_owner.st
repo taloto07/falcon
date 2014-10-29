@@ -33,6 +33,13 @@ dashboard_owner(contextPath, errorMessage, users)::="
 								$endif$
 							}$
 						</table>
+						
+						<h3>Jobs</h3>
+		  				<table class='table table-hover'>
+			  				<tr>
+			  					<td><a href='#' id='getAllJob'>Job</a></td>
+			  				<tr>
+						</table>
 		  			</div>
 				</div>
 			</div> <!--/div Display Customer Here-->
@@ -60,7 +67,7 @@ dashboard_owner(contextPath, errorMessage, users)::="
 					</div>
 					<div class='panel-body'>
 						<h2 id='jobHeader'>All Jobs Related To User Displayed Here</h2>
-						<table class='table' id='userJobHistory'>
+						<table class='table table-striped' id='userJobHistory'>
 						
 						</table>
 					</div>

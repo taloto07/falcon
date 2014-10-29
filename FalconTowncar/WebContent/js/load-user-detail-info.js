@@ -64,43 +64,63 @@ $(document).ready(function(){
 			
 			displayJob(data);
 		}
-		
-		function displayJob(data){
-			var jobs = "<thead><tr>" +
-			"<th>Customer</th>" +
-			"<th>Driver</th>" +
-			"<th>Departure</th>" +
-			"<th>Destination</th>" +
-			"<th>Distance</th>" +
-			"<th>Cost</th>" +
-			"<th>Date</th>" +
-			"<th>Tip</th>" +
-			"</tr></thead><tbody>";
+	});
 	
-			for (var index in data.jobs){
-				var customerName = data.jobs[index].customerName;
-				var customerEmail = data.jobs[index].customerEmail;
-				var driverEmail = data.jobs[index].driverEmail;
-				var driverName = data.jobs[index].driverName;
-				var distance = data.jobs[index].distance;
-				var cost = data.jobs[index].cost;
-				var date = data.jobs[index].date;
-				var tip = data.jobs[index].tip;
-				jobs += "<tr>" +
-						"<td><a href='#' email='" + customerEmail + "' id='loadUserInfo'>" + customerName + "</a></td>" +
-						"<td><a href='#' email='" + driverEmail + "' id='loadUserInfo'>" + driverName + "</a></td>" +
-						"<td>7748 134th ave ne, wa 98052</td>" +
-						"<td>7748 134th ave ne, wa 98052</td>" +
-						"<td>" + distance + "</td>" +
-						"<td>" + cost + "</td>" +
-						"<td>" + date + "</td>" +
-						"<td>" + tip + "</td>" +
-						"</tr>";
-			}
-			
-			jobs += "</tbody>";
-			
-			$("table#userJobHistory").html(jobs);
+	function displayJob(data){
+		var jobs = "<thead><tr>" +
+		"<th>Customer</th>" +
+		"<th>Driver</th>" +
+		"<th>Departure</th>" +
+		"<th>Destination</th>" +
+		"<th>Distance</th>" +
+		"<th>Cost</th>" +
+		"<th>Date</th>" +
+		"<th>Tip</th>" +
+		"</tr></thead><tbody>";
+
+		for (var index in data.jobs){
+			var customerName = data.jobs[index].customerName;
+			var customerEmail = data.jobs[index].customerEmail;
+			var driverEmail = data.jobs[index].driverEmail;
+			var driverName = data.jobs[index].driverName;
+			var distance = data.jobs[index].distance;
+			var cost = data.jobs[index].cost;
+			var date = data.jobs[index].date;
+			var tip = data.jobs[index].tip;
+			jobs += "<tr>" +
+					"<td><a href='#' email='" + customerEmail + "' id='loadUserInfo'>" + customerName + "</a></td>" +
+					"<td><a href='#' email='" + driverEmail + "' id='loadUserInfo'>" + driverName + "</a></td>" +
+					"<td>7748 134th ave ne, wa 98052</td>" +
+					"<td>7748 134th ave ne, wa 98052</td>" +
+					"<td>" + distance + "</td>" +
+					"<td>" + cost + "</td>" +
+					"<td>" + date + "</td>" +
+					"<td>" + tip + "</td>" +
+					"</tr>";
 		}
+		
+		jobs += "</tbody>";
+		
+		$("table#userJobHistory").html(jobs);
+	}
+	
+	$(document).on("click", "a#getAllJob", function(){
+		$.ajax({
+			type: "POST",
+			url: "/FalconTowncar/api/v1/get-all-jobs",
+			dataType: 'json',
+			contentType: "application/json;charset=utf-8",
+			
+			success: function(data){
+				displayJob(data);
+				$("h2#userHeader").html("User Detail Information Displayed Here");
+				$("table#userDetail").html("");
+			},
+			error: function(xhr, status, error){
+				$("h2#userHeader").html("xhr: " + xhr +
+										"<br/>Status: " + status +
+										"<br/>Error: " + error);
+			}
+		});
 	});
 });

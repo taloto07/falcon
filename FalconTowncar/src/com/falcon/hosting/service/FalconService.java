@@ -14,6 +14,7 @@ import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.Group;
 import com.falcon.hosting.doa.House;
+import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.License;
 import com.falcon.hosting.doa.LicenseType;
 import com.falcon.hosting.doa.Make;
@@ -423,4 +424,11 @@ public class FalconService {
 		entityManager.get().getTransaction().commit();
 	}
 	//--------------------------------------------------End License--------------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------Job----------------------------------------------------------------------------------------------------
+	// get all jobs
+	public List<Job> getAllJob(){
+		return entityManager.get().createNamedQuery("Job.findAll", Job.class).getResultList();
+	}
+	//--------------------------------------------------End Job------------------------------------------------------------------------------------------------
 }
