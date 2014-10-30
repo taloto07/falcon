@@ -26,6 +26,7 @@ import com.falcon.hosting.doa.Address;
 import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.User;
+import com.falcon.hosting.doa.Vehicle;
 import com.falcon.hosting.guice.InjectorGuice;
 import com.falcon.hosting.restful.helper.UploadImageHelper;
 import com.falcon.hosting.restful.helper.UserFromJson;
@@ -49,7 +50,7 @@ public class V1 {
 		return "Restful service version 1.0";
 	}
 	
-	@Path("get-user-detail-info")
+	@Path("user")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -98,10 +99,40 @@ public class V1 {
 			responsedUser.put("state", state);
 			responsedUser.put("zipcode", zipcode);
 			
+			// get jobs related to user
 			List<Job> jobs = user.getDriver().getJobs();
 			List<Map> jobsList = getJobList(jobs); // get all jobs from this user
-			
 			responsedUser.put("jobs", jobsList);
+			
+			// get current vehicle
+			Vehicle currentVehicle = user.getDriver().getCurrentVehicle();
+			if (currentVehicle != null){
+				Map<String, String> currentVehicleMap = new HashMap<String, String>();
+				currentVehicleMap.put("make", currentVehicle.getMake().getName());
+				currentVehicleMap.put("model", currentVehicle.getModel().getName());
+				currentVehicleMap.put("year", "" + currentVehicle.getYear());
+				currentVehicleMap.put("licensePlate", currentVehicle.getLicensePlateNumber());
+				currentVehicleMap.put("capacity", "" + currentVehicle.getCapacity());
+				responsedUser.put("currentVehicle", currentVehicleMap);
+			}
+			
+			// get all user's vehicles except current vehicle
+			List<Vehicle> vehicles = user.getDriver().getVehicles();
+			vehicles.remove(currentVehicle);
+			List<Map> vehiclesList = new ArrayList<Map>();
+			if (vehicles != null){
+				for (Vehicle vehicle: vehicles){
+					Map<String, String> vehicleMap = new HashMap<String, String>();
+					vehicleMap.put("make", vehicle.getMake().getName());
+					vehicleMap.put("model", vehicle.getModel().getName());
+					vehicleMap.put("year", "" + vehicle.getYear());
+					vehicleMap.put("licensePlate", vehicle.getLicensePlateNumber());
+					vehicleMap.put("capacity", "" + vehicle.getCapacity());
+					vehiclesList.add(vehicleMap);
+				}
+			}
+			responsedUser.put("vehicles", vehiclesList);
+			
 		}else{	// customer user
 			Customer customer = user.getCustomer();
 			responsedUser.put("userType", "customer");
@@ -192,7 +223,7 @@ public class V1 {
 		return stringAddress;
 	}
 	
-	@Path("get-all-jobs")
+	@Path("jobs")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

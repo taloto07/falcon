@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$("h2#otherVehicleHeader").hide();
 	$(document).on("click", "a#loadUserInfo", function(){
 		
 		var email = $(this).attr("email");
@@ -8,7 +9,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "POST",
-			url: "/FalconTowncar/api/v1/get-user-detail-info",
+			url: "/FalconTowncar/api/v1/user",
 			dataType: 'json',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify(data),
@@ -25,7 +26,10 @@ $(document).ready(function(){
 			}
 		});
 		
+		// display driver information
 		function displayDriver(data){
+			displayJob(data);
+			
 			var image;
 			if (data.userImage == null)
 				image = "profile-default.png";
@@ -47,14 +51,68 @@ $(document).ready(function(){
 			$("h2#userHeader").hide();
 			$("table#userDetail").hide();
 			$("h2#userHeader").html(header);
-			$("h2#userHeader").show(1000);
+			$("h2#userHeader").show(500);
 			$("table#userDetail").html(content);
-			$("table#userDetail").show(1000);
+			$("table#userDetail").show(500);
 			
-			displayJob(data);
+			// write current vehicle out
+			var currentVehicle = "<div class='alert alert-danger' role='alert'> No Current Vehicle!</div>";
+			if (data.currentVehicle){
+				currentVehicle = "<tbody>" +
+				"<tr>" +
+					"<td>Make</td><td>" + data.currentVehicle.make + "</td>" +
+				"</tr>" +
+				"<tr>" +
+					"<td>Model</td><td>" + data.currentVehicle.model + "</td>" +
+				"</tr>" +
+				"<tr>" +
+					"<td>Year</td><td>" + data.currentVehicle.year + "</td>" +
+				"</tr>" +
+				"<tr>" +
+					"<td>License Plate</td><td>" + data.currentVehicle.licensePlate + "</td>" +
+				"</tr>" +
+				"<tr>" +
+					"<td>Capacity</td><td>" + data.currentVehicle.capacity + "</td>" +
+				"</tr>" +
+				"</tbody>";
+			}
+			
+			// write other vehicles out
+			var otherVehicles = "";
+			if (data.vehicles.length){
+				for (var i in data.vehicles){
+					otherVehicles += "<table class='table table-striped'>" +
+									"<caption class='alert alert-info'>Car " + (parseInt(i) + 1) + "</caption>" +
+									"<tbody>" +
+										"<tr><td>Make</td><td>" + data.vehicles[i].make + "</td></tr>" +
+										"<tr><td>Model</td><td>" + data.vehicles[i].model + "</td></tr>" +
+										"<tr><td>Year</td><td>" + data.vehicles[i].year + "</td></tr>" +
+										"<tr><td>License Plage</td><td>" + data.vehicles[i].licensePlate + "</td></tr>" +
+										"<tr><td>Capacity</td><td>" + data.vehicles[i].capacity + "</td></tr>" +
+									"</tbody>" +
+									"</table>";
+				}
+			}else{
+				otherVehicles = "<div class='alert alert-info' role='alert'> No Other Vehicles.</div>";
+			}
+			// show other vehicles and header
+			$("div#otherVehicleDetail").show();
+			$("h2#otherVehicleHeader").show();
+			
+			// add current vehicle to page
+			$("h2#currentVehicleHeader").html("Current Vehicle");
+			$("table#currentVehicleDetail").html(currentVehicle);
+			
+			$("div#otherVehicleDetail").html(otherVehicles);
+			
+			$("div#driverCars").hide();
+			$("div#driverCars").show(1000);
 		}
 		
+		// display customer information
 		function displayCustomer(data){
+			displayJob(data);
+			
 			var header = data.firstname + " " + data.lastname;
 			var content = "<tr><td>Email</td><td>" + data.email + "</td></tr>";
 			content += "<tr><td>Phone</td><td>" + data.phone + "</td></tr>";
@@ -65,15 +123,16 @@ $(document).ready(function(){
 			
 			$("h2#userHeader").hide();
 			$("table#userDetail").hide();
+			$("div#otherVehicleDetail").hide();
+			$("h2#otherVehicleHeader").hide();
 			$("h2#userHeader").html(header);
 			$("table#userDetail").html(content);
-			$("h2#userHeader").show(1000);
-			$("table#userDetail").show(1000);
-			
-			displayJob(data);
+			$("h2#userHeader").show(500);
+			$("table#userDetail").show(500);
 		}
 	});
 	
+	// display job information
 	function displayJob(data){
 		var jobs = "<thead><tr>" +
 		"<th>Customer</th>" +
@@ -115,12 +174,21 @@ $(document).ready(function(){
 		$("table#userJobHistory").hide();
 		$("table#userJobHistory").html(jobs);
 		$("table#userJobHistory").show(1000);
+		
+		$("h2#currentVehicleHeader").html("Car Detail Information Displayed Here");
+		$("table#currentVehicleDetail").html("");
+		$("div#driverCars").show(500);
+		
+		// hide other vehicles and header
+		$("div#otherVehicleDetail").hide();
+		$("h2#otherVehicleHeader").hide();
 	}
 	
+	// retrieve alll jobs information
 	$(document).on("click", "a#getAllJob", function(){
 		$.ajax({
 			type: "POST",
-			url: "/FalconTowncar/api/v1/get-all-jobs",
+			url: "/FalconTowncar/api/v1/jobs",
 			dataType: 'json',
 			contentType: "application/json;charset=utf-8",
 			

@@ -44,7 +44,7 @@ dashboard_owner(contextPath, errorMessage, users)::="
 				</div>
 			</div> <!--/div Display Customer Here-->
 			
-			<div class='col-sm-10'> <!--Detail Info-->
+			<div class='col-sm-5'> <!--User Detail Info-->
 				<div class='panel panel-primary'>
 					<div class='panel-heading'>
 						<h3 class='panel-title'>Detail Information</h3>
@@ -54,6 +54,25 @@ dashboard_owner(contextPath, errorMessage, users)::="
 		  				<table class='table table-striped' id='userDetail'>
 		  					
 			  			</table>
+		  			</div>
+				</div>
+			</div> <!-- /div Detail Info-->
+			
+			<div class='col-sm-5' id='driverCars'> <!--Cars Detail Info-->
+				<div class='panel panel-primary'>
+					<div class='panel-heading'>
+						<h3 class='panel-title'>Crs</h3>
+					</div>
+		  			<div class='panel-body'>
+		  				<h2 id='currentVehicleHeader'>Car Detail Information Displayed Here</h2>
+		  				<table class='table table-striped' id='currentVehicleDetail'>
+		  					
+			  			</table>
+			  			
+			  			<h2 id='otherVehicleHeader'>Other Vehicle</h2>
+		  				<div id='otherVehicleDetail'>
+		  					
+			  			</div>
 		  			</div>
 				</div>
 			</div> <!-- /div Detail Info-->
