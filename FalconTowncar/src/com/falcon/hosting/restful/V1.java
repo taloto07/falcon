@@ -140,19 +140,56 @@ public class V1 {
 			String date = job.getDate().toString();
 			String tip = "" + job.getTip();
 			
+			String departure = "";
+			if (job.getSourceAddress() != null){ 
+				departure = this.convertAddressIntoString(job.getSourceAddress());
+			}else{
+				departure = "" + job.getSourceCoordination().getLatitude();
+				departure += ", " + job.getSourceCoordination().getLongitude();
+			}
+				
+			
+			String destination = "";
+			if (job.getDestinationAddress() != null){
+				destination = this.convertAddressIntoString(job.getDestinationAddress());
+			}else{
+				destination = "" + job.getDestinationCoordination().getLatitude();
+				destination += ", " + job.getDestinationCoordination().getLongitude();
+			}
+			
+			
 			jobsMap.put("customerName", customerFirstname + " " + customerLastname);
 			jobsMap.put("customerEmail", customerEmail);
 			jobsMap.put("driverEmail", driverEmail);
 			jobsMap.put("driverName", driverFirstname + " " + driverLastname);
+			jobsMap.put("departure", departure);
+			jobsMap.put("destination", destination);
 			jobsMap.put("distance", distance);
 			jobsMap.put("cost", cost);
 			jobsMap.put("date", date);
 			jobsMap.put("tip", tip);
 			
 			jobsList.add(jobsMap);
+			
+			System.out.println("got request");
 		}
 		
 		return jobsList;
+	}
+	
+	private String convertAddressIntoString(Address address){
+		if (address == null) return null;
+		
+		String stringAddress = "";
+		
+		stringAddress = address.getHouse().getNumber();
+		stringAddress += " " + address.getStreet().getName();
+		stringAddress += " " + address.getCity().getName();
+		stringAddress += ", " + address.getState().getAbbreviation();
+		stringAddress += " " + address.getZipcode().getZipcode();
+		
+		
+		return stringAddress;
 	}
 	
 	@Path("get-all-jobs")

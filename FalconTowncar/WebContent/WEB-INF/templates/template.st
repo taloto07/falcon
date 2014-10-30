@@ -15,6 +15,7 @@ useremail, owner)::="
     <!-- Bootstrap core CSS -->
     <link href='$contextPath$css/bootstrap.min.css' rel='stylesheet'>
     
+    
     <!-- Bootstrap datepicker CSS -->
     <link href='$contextPath$css/datepicker.css' rel='stylesheet'>
 
@@ -70,8 +71,8 @@ useremail, owner)::="
           </ul>
           <ul class='nav navbar-nav navbar-right'>
           	$if(login)$
-          		<li class='dropdown'>
-              		<a href='#' class='dropdown-toggle' data-toggle='dropdown'>$username$ <span class='caret'></span></a>
+          		<li class='dropdown'>          		
+              		<a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span> $username$ <span class='caret'></span></a>
               		<ul class='dropdown-menu' role='menu'>
                 		<li><a href='$contextPath$dashboard/$useremail$'>Dashboard</a></li>
                 		$if(owner)$

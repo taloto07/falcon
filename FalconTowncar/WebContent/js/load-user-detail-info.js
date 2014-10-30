@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	$(document).on("click", "a#loadUserInfo", function(){
+		
 		var email = $(this).attr("email");
 		var data = {email : email};
 //		$("a#loadUserInfo").parent().parent().css("background-color","white");
@@ -43,9 +44,12 @@ $(document).ready(function(){
 			content += "<tr><td>State</td><td>" + data.state + "</td></tr>";
 			content += "<tr><td>Zipcode</td><td>" + data.zipcode + "</td></tr>";
 			
-			$("h2#jobHeader").html("");
+			$("h2#userHeader").hide();
+			$("table#userDetail").hide();
 			$("h2#userHeader").html(header);
+			$("h2#userHeader").show(1000);
 			$("table#userDetail").html(content);
+			$("table#userDetail").show(1000);
 			
 			displayJob(data);
 		}
@@ -59,8 +63,12 @@ $(document).ready(function(){
 			content += "<tr><td>CCV</td><td>" + data.ccv + "</td></tr>";
 			content += "<tr><td>Zipcode</td><td>" + data.zipcode + "</td></tr>";
 			
+			$("h2#userHeader").hide();
+			$("table#userDetail").hide();
 			$("h2#userHeader").html(header);
 			$("table#userDetail").html(content);
+			$("h2#userHeader").show(1000);
+			$("table#userDetail").show(1000);
 			
 			displayJob(data);
 		}
@@ -83,15 +91,18 @@ $(document).ready(function(){
 			var customerEmail = data.jobs[index].customerEmail;
 			var driverEmail = data.jobs[index].driverEmail;
 			var driverName = data.jobs[index].driverName;
+			var departure = data.jobs[index].departure;
+			var destination = data.jobs[index].destination;
 			var distance = data.jobs[index].distance;
 			var cost = data.jobs[index].cost;
 			var date = data.jobs[index].date;
 			var tip = data.jobs[index].tip;
+			
 			jobs += "<tr>" +
 					"<td><a href='#' email='" + customerEmail + "' id='loadUserInfo'>" + customerName + "</a></td>" +
 					"<td><a href='#' email='" + driverEmail + "' id='loadUserInfo'>" + driverName + "</a></td>" +
-					"<td>7748 134th ave ne, wa 98052</td>" +
-					"<td>7748 134th ave ne, wa 98052</td>" +
+					"<td>" + departure + "</td>" +
+					"<td>" + destination + "</td>" +
 					"<td>" + distance + "</td>" +
 					"<td>" + cost + "</td>" +
 					"<td>" + date + "</td>" +
@@ -101,7 +112,9 @@ $(document).ready(function(){
 		
 		jobs += "</tbody>";
 		
+		$("table#userJobHistory").hide();
 		$("table#userJobHistory").html(jobs);
+		$("table#userJobHistory").show(1000);
 	}
 	
 	$(document).on("click", "a#getAllJob", function(){
