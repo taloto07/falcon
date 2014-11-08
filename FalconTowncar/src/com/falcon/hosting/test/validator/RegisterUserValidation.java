@@ -94,8 +94,7 @@ public class RegisterUserValidation {
 		this.setState(request.getParameter("state"));
 		this.setZipcode(request.getParameter("zipcode"));
 		this.setPhoneNumber(request.getParameter("phoneNumber"));
-		
-		
+				
 		fieldName.put("emailExist", "Email");
 	}
 	
