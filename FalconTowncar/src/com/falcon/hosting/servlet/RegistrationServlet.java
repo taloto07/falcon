@@ -103,6 +103,7 @@ public class RegistrationServlet extends BaseServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			response.sendRedirect("/login");
 			
 		} else {
 			errorMessage = "Email is invalid.";				
@@ -141,7 +142,7 @@ public class RegistrationServlet extends BaseServlet {
 		user.setEmail(form.getEmail());
 		
 		SHA256Conv sha256Conv = new SHA256Conv(form.getPassword()); // convert to sha256 format
-		user.setPassword(sha256Conv.toString());
+		user.setPassword(sha256Conv.getConvPass());
 		user.setPhoneNumber(form.getPhoneNumber());
 		
 		// add customer group to this user
