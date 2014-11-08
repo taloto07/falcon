@@ -54,25 +54,7 @@ public class RegisterUserValidation {
 	private boolean isPasswordMatch(){
 		return password.equals(confirmPassword);
 	}
-	
-	@NotNull
-	@NotEmpty
-	private String address;
-	
-	@NotNull
-	@NotEmpty
-	private String city;
-	
-	@NotNull
-	@Min(1)
-	@Digits(fraction = 0, integer = 11)
-	private String state;
-	
-	@NotNull
-	@Length(min = 5, max = 5)
-	@Digits(fraction = 0, integer = 11)
-	private String zipcode;
-	
+
 	@NotNull
 	@Length(min = 10, max = 11)
 	@Digits(fraction = 0, integer = 11)
@@ -88,11 +70,7 @@ public class RegisterUserValidation {
 		this.setConfirmEmail(request.getParameter("confirmEmail"));
 		this.setDob(request.getParameter("dob"));
 		this.setPassword(request.getParameter("password"));
-		this.setConfirmPassword(request.getParameter("confirmPassword"));
-		this.setAddress(request.getParameter("address"));
-		this.setCity(request.getParameter("city"));
-		this.setState(request.getParameter("state"));
-		this.setZipcode(request.getParameter("zipcode"));
+		this.setConfirmPassword(request.getParameter("confirmPassword"));		
 		this.setPhoneNumber(request.getParameter("phoneNumber"));
 				
 		fieldName.put("emailExist", "Email");
@@ -155,37 +133,6 @@ public class RegisterUserValidation {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getZipcode() {
-		return zipcode;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;

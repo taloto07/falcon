@@ -91,6 +91,10 @@ public class RegistrationServlet extends BaseServlet {
 
 		Set<ConstraintViolation<RegisterUserValidation>> isFormValid = validator.validate(form);
 		
+		System.out.println("\n\n\n"+ validator.toString()+ "\n\n\n");
+		System.out.println("\n\n\n"+ isFormValid.toString()+ "\n\n\n");
+		System.out.println("\n\n\n"+ isFormValid.isEmpty()+ "\n\n\n");
+		
 		if(isFormValid.isEmpty() && service.getUserByEmail(form.getEmail()) == null) {
 			try {
 				insertUser(form);
