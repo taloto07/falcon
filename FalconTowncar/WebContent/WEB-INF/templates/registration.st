@@ -1,4 +1,6 @@
-registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
+registration(contextPath, formValue, errorMessage, states, makes, models, 
+firstname, lastname, email, emailMatch, password, passwordMatch, 
+phoneNumber, dob,confirmPassword, confirmEmail)::="
 <!-- Begin page content -->
 <div class='container'>
 	<div class='jumbotron'>
@@ -7,57 +9,113 @@ registration(contextPath, errorMessage, states, errorFirstName, errorDOB)::="
 		$endif$
 		
 		<form class='form-horizontal' role='form' method='post' action='$contextPath$registration'>
-			<h1><center>Registration Form</center></h1>
+			<h1><center>New User Registration</center></h1>
 			<h3><center>Please fill out the following items</center></h3>
 			<br>
 			
-			<div class='form-group $errorFirstName$'>
+			<div class='form-group $if(firstname)$ has-error $endif$'>
 		    	<label for='firstname' class='col-sm-2 control-label'>First Name</label>
 		    	<div class='col-sm-10'>
-		    		<input value='' type='text' class='form-control' id='firstname' placeholder='First Name' name='firstname'>
+		    		<input 
+		    			$if(firstname)$ 
+		    				placeholder='$firstname$' 
+		    			$elseif(formValue.firstname)$ 
+		    				value='$formValue.firstname$'
+		    			$else$
+		    				placeholder='First Name'
+		    		 	$endif$ 
+		    		 	type='text' class='form-control' id='firstname' name='firstname'>
 		   		</div>
 		  	</div>
 		  	
-		  	<div class='form-group'>
+		  	<div class='form-group $if(lastname)$ has-error $endif$'>
 		    	<label for='lastname' class='col-sm-2 control-label'>Last Name</label>
 		    	<div class='col-sm-10'>
-		    		<input type='text' class='form-control' id='lastname' placeholder='Last Name' name='lastname'>
+		    		<input 
+		    			$if(lastname)$ 
+		    				placeholder='$lastname$' 
+		    			$elseif(formValue.lastname)$ 
+		    				value='$formValue.lastname$'
+		    			$else$ 
+		    				placeholder='Last Name'
+		    			$endif$ 
+		    			type='text' class='form-control' id='lastname' name='lastname'>
 		   		</div>
 		  	</div>
 		  	
-		  	<div class='form-group'>
+		  	<div class='form-group $if(email)$ has-error $endif$'>
 		    	<label for='email' class='col-sm-2 control-label'>Email</label>
 		    	<div class='col-sm-10'>
-		    		<input type='email' class='form-control' id='email' placeholder='Email' name='email'>
+		    		<input 
+		    			$if(email)$ 
+		    				placeholder='$email$' 
+		    			$elseif(formValue.email)$ 
+		    				value='$formValue.email$'
+		    			$else$
+		    				placeholder='Email' 
+		    			$endif$ 
+		    			type='email' class='form-control' id='email' name='email'>
 		   		</div>
 		  	</div>
 		  	
-		  	<div class='form-group'>
+		  	<div class='form-group $if(emailMatch)$ has-error $endif$'>
 		    	<label for='confirmEmail' class='col-sm-2 control-label'>Confirm Email</label>
 		    	<div class='col-sm-10'>
-		    		<input type='email' class='form-control' id='confirmEmail' placeholder='Confirm Email' name='confirmEmail'>
+		    		<input 
+		    			$if(emailMatch)$ 
+		    				placeholder='$emailMatch$' 
+		    			$elseif(formValue.confirmEmail)$ 
+		    				value='$formValue.confirmEmail$'
+		    			$else$
+		    				placeholder='Confirm Email'
+		    			$endif$ 
+		    			type='email' class='form-control' id='confirmEmail' name='confirmEmail'>
 		   		</div>
 		  	</div>
 		  	
-		  	<div class='form-group'>
+		  	<div class='form-group $if(dob)$ has-error $endif$'>
 		    	<label for='dob' class='col-sm-2 control-label'>Date of Birth</label>
 		    	<div class='col-sm-10 input-append date' id='dob-datepicker' data-date='12-02-1980' data-date-format='mm-dd-yyyy'>
-					<input size='16' type='text' placeholder='12-02-2014' id='dob' name='dob'>
+					<input 
+						$if(dob)$ 
+							placeholder='$dob$' 
+						$elseif(formValue.dob)$ 
+							value='$formValue.dob$' 
+						$else$
+							placeholder='12-02-2014'
+						$endif$ 
+						size='16' type='text' id='dob' name='dob' readonly='readonly'>
 					<span class='add-on'><span class='glyphicon glyphicon-calendar'></span></span>
 				</div>
 		  	</div>
 		  	
-		  	<div class='form-group'>
+		  	<div class='form-group $if(password)$ has-error $endif$'>
 		    	<label for='inputPassword' class='col-sm-2 control-label'>Password</label>
 		    	<div class='col-sm-10'>
-		    		<input type='password' class='form-control' id='inputPassword' placeholder='Password' name='password'>
+		    		<input 
+		    			$if(password)$ 
+		    				placeholder='$password$' 
+		    			$elseif(formValue.password)$ 
+		    				value='$formValue.password$'
+		    			$else$
+		    				placeholder='Password' 
+		    			$endif$ 
+		    			type='password' class='form-control' id='inputPassword' name='password'>
 		   		</div>
 		  	</div>
 		  	
-		  	<div class='form-group'>
+		  	<div class='form-group $if(passwordMatch)$ has-error $endif$'>
 		    	<label for='inputConfirmPassword' class='col-sm-2 control-label'>Confirm Password</label>
 		    	<div class='col-sm-10'>
-		    		<input type='password' class='form-control' id='inputConfirmPassword' placeholder='Confirm Password' name='confirmPassword'>
+		    		<input 
+		    			$if(passwordMatch)$ 
+		    				placeholder='$passwordMatch$' 
+		    			$elseif(formValue.confirmPassword)$ 
+		    				value='$formValue.confirmPassword$'
+		    			$else$
+		    				 placeholder='Confirm Password'
+		    			$endif$ 
+		    			type='password' class='form-control' id='inputConfirmPassword' name='confirmPassword'>
 		   		</div>
 		  	</div>
 		  	
