@@ -13,7 +13,8 @@ import java.util.List;
 @Entity
 @Table(name="jobs")
 @NamedQueries({
-	@NamedQuery(name="Job.findAll", query="SELECT j FROM Job j")
+	@NamedQuery(name="Job.findAll", query="SELECT j FROM Job j"),
+	@NamedQuery(name="Job.findById", query="SELECT j FROM Job j WHERE j.id = :id")
 })
 
 public class Job implements Serializable {

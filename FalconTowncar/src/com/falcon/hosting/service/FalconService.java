@@ -54,6 +54,14 @@ public class FalconService {
 		}
 	}
 	
+	// get specific user by id
+	public User getUserById(int id){
+		try{
+			return entityManager.get().createNamedQuery("User.findById", User.class).setParameter("id", id).getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
 	
 	// add one user to database
 	public boolean addUser(User user){
@@ -296,6 +304,19 @@ public class FalconService {
 	public List<Comment> getAllComment(){
 		return entityManager.get().createNamedQuery("Comment.findAll", Comment.class).getResultList();
 	}
+	
+	// get all comment order by ascending
+	public List<Comment> getAllCommentSortByASC(){
+		return entityManager.get().createNamedQuery("Comment.findAllAsc", Comment.class).getResultList();
+	}
+	
+	
+	// add comment
+	public void addComment(Comment comment){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(comment);
+		entityManager.get().getTransaction().commit();
+	}
 	//-------------------------------------------End Comment---------------------------------------------------------------------------------------------------
 	
 	//-------------------------------------------Coordination--------------------------------------------------------------------------------------------------
@@ -429,6 +450,15 @@ public class FalconService {
 	// get all jobs
 	public List<Job> getAllJob(){
 		return entityManager.get().createNamedQuery("Job.findAll", Job.class).getResultList();
+	}
+	
+	// get job by id
+	public Job getJobById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Job.findById", Job.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
 	}
 	//--------------------------------------------------End Job------------------------------------------------------------------------------------------------
 }

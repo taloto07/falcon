@@ -37,7 +37,7 @@ dashboard_owner(contextPath, errorMessage, users)::="
 						<h3>All Jobs</h3>
 		  				<table class='table table-hover'>
 			  				<tr>
-			  					<td><a href='#' id='getAllJob'>Job</a></td>
+			  					<td><a id='getAllJob'>Job</a></td>
 			  				<tr>
 						</table>
 		  			</div>

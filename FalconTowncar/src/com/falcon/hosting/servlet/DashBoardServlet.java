@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
+import com.falcon.hosting.doa.Comment;
 import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.User;
 import com.falcon.hosting.doa.Vehicle;
@@ -49,14 +52,38 @@ public class DashBoardServlet extends BaseServlet {
 		
 		String email = request.getRemoteUser();
 		User user = service.getUserByEmail(email);
-		if (user.getCustomer() != null){ // customer 
+		/*
+		 * *******************************
+		 *  customer
+		 * ******************************* 
+		 */
+		if (user.getCustomer() != null){  
 			
 			body = proccessCustomer(request, response);
 			
-		}else if (user.getDriver() != null){// driver
+			ST script = templates.getInstanceOf("javascript");
+			script.add("contextPath", contextPath);
+			script.add("filename", "post_comment.js");
+			page.add("script", script.render());
+		/*
+		 * *******************************
+		 *  driver
+		 * ******************************* 
+		 */	
+		}else if (user.getDriver() != null){
 			
 			body = proccessDriver(request, response);
 			
+			ST script = templates.getInstanceOf("javascript");
+			script.add("contextPath", contextPath);
+			script.add("filename", "post_comment.js");
+			page.add("script", script.render());
+		
+		/*
+		 * *******************************
+		 *  owner
+		 * ******************************* 
+		 */
 		}else{
 			body = proccessOwner(request, response);
 			page.add("owner", "owner user");
@@ -104,6 +131,18 @@ public class DashBoardServlet extends BaseServlet {
 			
 			// get all jobs
 			List<Job> jobs = user.getDriver().getJobs();
+			for (Job job: jobs){
+				List<Comment> comments = job.getComments();
+				Collections.sort(comments, new Comparator<Comment>(){
+
+					@Override
+					public int compare(Comment o1, Comment o2) {
+						// TODO Auto-generated method stub
+						return o1.getDate().compareTo(o2.getDate());
+					}
+					
+				});
+			}
 			
 			body.add("user", user);
 			body.add("currentVehicle", currentVehicle);
@@ -136,6 +175,18 @@ public class DashBoardServlet extends BaseServlet {
 		}else{
 			User user = service.getUserByEmail(email); // get user
 			List<Job> jobs = user.getCustomer().getJobs();
+			for (Job job: jobs){
+				List<Comment> comments = job.getComments();
+				Collections.sort(comments, new Comparator<Comment>(){
+
+					@Override
+					public int compare(Comment o1, Comment o2) {
+						// TODO Auto-generated method stub
+						return o1.getDate().compareTo(o2.getDate());
+					}
+					
+				});
+			}
 			
 			body.add("user", user);
 			body.add("jobs", jobs);

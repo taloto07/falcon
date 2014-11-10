@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -23,6 +26,7 @@ import org.json.JSONObject;
 import sun.misc.BASE64Decoder;
 
 import com.falcon.hosting.doa.Address;
+import com.falcon.hosting.doa.Comment;
 import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.User;
@@ -48,6 +52,36 @@ public class V1 {
 	@Produces(MediaType.TEXT_HTML)
 	public String getStatus(){
 		return "Restful service version 1.0";
+	}
+	
+	@Path("comment")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postComment(String data) throws JSONException{
+		JSONObject json_object = new JSONObject(data);
+		int userId = json_object.getInt("userId");
+		int jobId = json_object.getInt("jobId");
+		String message = json_object.getString("comment");
+		
+		Comment comment = new Comment();
+		
+		Job job = service.getJobById(jobId);
+		User user = service.getUserById(userId);
+		
+		comment.setComment(message);
+		comment.setJob(job);
+		comment.setUser(user);
+		comment.setDate(new Date());
+		
+		service.addComment(comment);
+		
+		Map<Object, Object> result = new HashMap<Object, Object>();
+		result.put("state", "success");
+		
+		Gson json = new Gson();
+		
+		return json.toJson(result);
 	}
 	
 	@Path("user")
@@ -156,7 +190,7 @@ public class V1 {
 		List<Map> jobsList = new ArrayList<Map>();
 		
 		for (Job job: jobs){
-			Map<String, String> jobsMap = new HashMap<String, String>();
+			Map<Object, Object> jobsMap = new HashMap<Object, Object>();
 			
 			String customerFirstname = job.getCustomer().getUser().getFirstname();
 			String customerLastname = job.getCustomer().getUser().getLastname();
@@ -170,6 +204,7 @@ public class V1 {
 			String cost = "" + job.getCost();
 			String date = job.getDate().toString();
 			String tip = "" + job.getTip();
+			String jobId = "" + job.getId();
 			
 			String departure = "";
 			if (job.getSourceAddress() != null){ 
@@ -199,6 +234,33 @@ public class V1 {
 			jobsMap.put("cost", cost);
 			jobsMap.put("date", date);
 			jobsMap.put("tip", tip);
+			jobsMap.put("jobId", jobId);
+			
+			//get comments related to that job
+			List<Map> commentList = new ArrayList<Map>();
+			
+			List<Comment> comments = job.getComments();
+			// sort comment by date ASC
+			Collections.sort(comments, new Comparator<Comment>(){
+
+				@Override
+				public int compare(Comment o1, Comment o2) {
+					// TODO Auto-generated method stub
+					return o1.getDate().compareTo(o2.getDate());
+				}
+				
+			});
+			
+			for (Comment c: comments){
+				Map<Object, Object> commentMap = new HashMap<Object, Object>();
+				
+				commentMap.put("firstname", c.getUser().getFirstname());
+				commentMap.put("lastname", c.getUser().getLastname());
+				commentMap.put("comment", c.getComment());
+				commentList.add(commentMap);
+			}
+			
+			jobsMap.put("comments", commentList);
 			
 			jobsList.add(jobsMap);
 			
@@ -238,6 +300,41 @@ public class V1 {
 		Gson gson = new Gson();
 		
 		return gson.toJson(responsedUser);
+	}
+	
+	@Path("comments/job/{jobId}")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getComments(@PathParam("jobId") int jobId){
+		Job job = service.getJobById(jobId);
+		
+		// check for existed job in the database
+		if (job == null) return "empty";
+		
+		// get all comments related to that job
+		List<Comment> comments = job.getComments();
+		
+		// build a list to store all comments
+		List<Map> commentList = new ArrayList<Map>();
+		
+		for (Comment c: comments){
+			Map<Object, Object> commentMap = new HashMap<Object, Object>();
+			
+			String comment = c.getComment();
+			String userName = c.getUser().getFirstname() + " " + c.getUser().getLastname();
+			
+			// put to map
+			commentMap.put("comment", comment);
+			commentMap.put("userName", userName);
+			
+			// put to list
+			commentList.add(commentMap);
+		}
+		
+		Gson gson = new Gson();
+		
+		return gson.toJson(commentList);
 	}
 	
 	@Path("shareGCMRegId")

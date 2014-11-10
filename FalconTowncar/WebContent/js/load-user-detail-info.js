@@ -143,6 +143,7 @@ $(document).ready(function(){
 		"<th>Cost</th>" +
 		"<th>Date</th>" +
 		"<th>Tip</th>" +
+		"<th>Comments</th>" +
 		"</tr></thead><tbody>";
 
 		for (var index in data.jobs){
@@ -156,17 +157,71 @@ $(document).ready(function(){
 			var cost = data.jobs[index].cost;
 			var date = data.jobs[index].date;
 			var tip = data.jobs[index].tip;
+			var comments = data.jobs[index].comments;
+			var commentList = "";
+			
+			// get all comments and put them into commentList
+			for (var i = 0; i < comments.length; i++){
+				var firstname = comments[i].firstname;
+				var lastname = comments[i].lastname;
+				
+				firstname = firstname[0].toUpperCase() + firstname.slice(1);
+				lastname = lastname[0].toUpperCase() + lastname.slice(1);
+				
+				var username = "<b>" + firstname + " " + lastname + "</b>";
+				
+				var comment = comments[i].comment;
+				
+				commentList += "<div class='panel panel-primary'>" +
+								"<div class='panel-heading'>" +
+									username +
+								"</div>" +
+								
+								"<div class='panel-body'>" +
+									comment +
+								"</div>" +
+							"</div>";
+			}
 			
 			jobs += "<tr>" +
-					"<td><a href='#' email='" + customerEmail + "' id='loadUserInfo'>" + customerName + "</a></td>" +
-					"<td><a href='#' email='" + driverEmail + "' id='loadUserInfo'>" + driverName + "</a></td>" +
-					"<td>" + departure + "</td>" +
-					"<td>" + destination + "</td>" +
-					"<td>" + distance + "</td>" +
-					"<td>" + cost + "</td>" +
-					"<td>" + date + "</td>" +
-					"<td>" + tip + "</td>" +
+						"<td><a href='#' email='" + customerEmail + "' id='loadUserInfo'>" + customerName + "</a></td>" +
+						"<td><a href='#' email='" + driverEmail + "' id='loadUserInfo'>" + driverName + "</a></td>" +
+						"<td>" + departure + "</td>" +
+						"<td>" + destination + "</td>" +
+						"<td>" + distance + "</td>" +
+						"<td>" + cost + "</td>" +
+						"<td>" + date + "</td>" +
+						"<td>" + tip + "</td>" +
+						"<td>" +
+							"<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#myModal" + index + "'>"+
+  								"Comments <span class='badge' id='commentCount" + index + "'>" + comments.length + "</span>" +
+							"</button>" +
+							
+							"<div class='modal fade' id='myModal" + index + "' tab-index='-1' role='dialog' aria-labeldby='myModalLabel' aria-hidden='true'>"+
+								"<div class='modal-dialog'>" +
+									"<div class='modal-content'>" +
+										"<div class='modal-header'>" +
+											"<button type='button' class='close' data-dismiss='modal'>"+
+												"<span aria-hidden='true'>&times;</span>" +
+												"<span class='rs-only'>Close</span>" +
+											"</button>" +
+											"<h4 class='modal-title' id='myModalLabel'>Modal Header</h4>" +
+										"</div>" +
+									
+										"<div class='modal-body'>" +
+											commentList +
+										"</div>" +
+									
+										"<div class='modal-footer'>" +
+											"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>" +
+											"<button type='button' class='btn btn-primary'>Save</button>" +
+										"</div>" +
+									"</div>" +
+								"</div>" +
+							"</div>" +
+						"</td>" +
 					"</tr>";
+//			<a id='getComment' jobId='" + jobId + "'>" + comments + "</a>
 		}
 		
 		jobs += "</tbody>";

@@ -62,6 +62,7 @@ dashboard_customer(contextPath, errorMessage, user, jobs)::="
 		  							<th>Cost</th>
 		  							<th>Date</th>
 		  							<th>Tip</th>
+		  							<th>comments</th>
 		  						</tr>
 		  					</thead>
 		  					<tbody>
@@ -87,12 +88,65 @@ dashboard_customer(contextPath, errorMessage, user, jobs)::="
 		  								<td>$job.cost$</td>
 		  								<td>$job.date$</td>
 		  								<td>$job.tip$</td>
+		  								<td>
+		  									<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#myModal$job.id$'>
+  												Comments <span class='badge' id='commentCount$job.id$'>$length(job.comments)$</span>
+											</button>
+
+											<div class='modal fade' id='myModal$job.id$' tab-index='-1' role='dialog' aria-labeldby='myModalLabel' aria-hidden='true'>
+												<div class='modal-dialog'>
+													<div class='modal-content'>
+
+														<div class='modal-header'>
+															<button type='button' class='close' data-dismiss='modal'>
+																<span aria-hidden='true'>&times;</span>
+																<span class='sr-only'>Close</span>
+															</button>
+															<h4 class='modal-title' id='myModalLabel'>Job id $job.id$</h4>
+														</div>
+
+														<div class='modal-body'>
+															<div id='showComments'>
+																$job.comments:{comment|
+																	<div class='panel panel-primary'>
+																	  	<div class='panel-heading'>
+																	  		$comment.user.firstname$ $comment.user.lastname$
+																	  	</div>
+																	  	
+																		<div class='panel-body'>
+																	    	$comment.comment$
+																	  	</div>
+																	</div>
+																}$
+															</div>
+															
+															<div id='postComment'>	
+																Comment: <textarea class='form-control' rows='3' style='resize:none'></textarea>
+																<button type='button' onclick='postComment($job.id$, $user.id$, \"$user.firstname$\", \"$user.lastname$\")'>Submit</button>
+															</div>
+														</div>
+
+														<div class='modal-footer'>
+															<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+															<button type='button' class='btn btn-primary'>Save changes</button>
+														</div>
+													</div>
+												</div>
+											</div>
+
+		  								</td>
 		  							</tr>
 		  						}$
 		  					</tbody>
 		  				</table>
 		  			</div>
 				</div>
+			</div>
+		</div>
+		
+		<div class='row'>
+			<div class='col-md-12'>
+				
 			</div>
 		</div>
 	$endif$

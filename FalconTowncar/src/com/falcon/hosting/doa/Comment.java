@@ -1,7 +1,11 @@
 package com.falcon.hosting.doa;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
+
+import com.sun.jmx.snmp.Timestamp;
 
 
 /**
@@ -11,7 +15,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="comments")
 @NamedQueries({
-	@NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c")
+	@NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c"),
+	@NamedQuery(name="Comment.findAllAsc", query="SELECT c FROM Comment c ORDER BY c.datetime ASC")
 })
 
 public class Comment implements Serializable {
@@ -32,6 +37,17 @@ public class Comment implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="users_id")
 	private User user;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date datetime;
+	
+	public Date getDate(){
+		return datetime;
+	}
+	
+	public void setDate(Date date){
+		this.datetime = date;
+	}
 
 	public Comment() {
 	}
