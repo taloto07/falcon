@@ -173,7 +173,7 @@ public class V1 {
 			responsedUser.put("creditCardNumber", customer.getCcvNumber());
 			responsedUser.put("expiration", customer.getExpiration());
 			responsedUser.put("ccv", customer.getCcvNumber());
-			responsedUser.put("zipcode", customer.getZipcode().getZipcode());
+			responsedUser.put("zipcode", customer.getZipcode() != null ? customer.getZipcode().getZipcode() : 0);
 			
 			List<Job> jobs = customer.getJobs();
 			List<Map> jobsList = getJobList(jobs);
