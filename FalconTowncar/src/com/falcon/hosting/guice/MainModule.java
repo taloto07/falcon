@@ -1,5 +1,6 @@
 package com.falcon.hosting.guice;
 
+import com.falcon.hosting.servlet.AddJobServlet;
 import com.falcon.hosting.servlet.ChamServlet;
 import com.falcon.hosting.servlet.ControllerServlet;
 import com.falcon.hosting.servlet.DashBoardServlet;
@@ -33,6 +34,7 @@ public class MainModule extends ServletModule{
 		bind(RegisterDriverTempServlet.class).in(Singleton.class);
 		bind(RegistrationServlet.class).in(Singleton.class);
 		bind(DashBoardServlet.class).in(Singleton.class);
+		bind(AddJobServlet.class).in(Singleton.class);
 		
 		serve("*.html").with(DispatchServlet.class);
 		serve("/").with(DispatchServlet.class);
@@ -45,6 +47,8 @@ public class MainModule extends ServletModule{
 		serve("/signup").with(SignupServlet.class);
 		serve("/register-driver").with(RegisterDriverTempServlet.class);
 		serve("/registration").with(RegistrationServlet.class);
+		serve("/admin/addjob").with(AddJobServlet.class);
 		serve("/dashboard/*").with(DashBoardServlet.class);
+		
 	}
 }

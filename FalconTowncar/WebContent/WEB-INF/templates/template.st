@@ -77,6 +77,7 @@ useremail, owner)::="
                 		<li><a href='$contextPath$dashboard/$useremail$'>Dashboard</a></li>
                 		$if(owner)$
                 			<li><a href='$contextPath$register-driver'>Driver Registration</a></li>
+                			<li><a href='$contextPath$admin/addjob'>Add Job</a></li>
                 		$endif$
               		</ul>
             	</li>
