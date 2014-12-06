@@ -20,8 +20,11 @@ import org.stringtemplate.v4.STGroup;
 
 import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Group;
+import com.falcon.hosting.doa.Make;
+import com.falcon.hosting.doa.Model;
 import com.falcon.hosting.doa.State;
 import com.falcon.hosting.doa.User;
+import com.falcon.hosting.test.validator.RegisterDriverValidation;
 import com.falcon.hosting.test.validator.RegisterUserValidation;
 import com.falcon.hosting.test.validator.SHA256Conv;
 
@@ -104,10 +107,92 @@ public class RegistrationServlet extends BaseServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.sendRedirect("FalconTowncar/login");
+			response.sendRedirect("./login");
 			
 		} else {
-			errorMessage = "Email is invalid.";				
+			/*
+			 * if (!isFormValid.isEmpty()){
+				// add error message for each field
+				List<String> propertyPaths = new ArrayList<String>(); 
+				for(ConstraintViolation<RegisterDriverValidation> rdv: isFormValid){
+					String propertyPath = rdv.getPropertyPath().toString();
+					
+					if (!propertyPaths.contains(propertyPath)){
+						propertyPaths.add(propertyPath);
+						body.add(propertyPath, rdv.getMessage() + " ");
+					}
+				}
+			}else{ // error: email is already existed
+				body.add("email", "Email is already exist!");
+				body.add("emailMatch", "Email is already exist!");
+				System.out.println("Email is already exist!!!!!!!!!!!!!!");
+			}
+			
+			// add javascript to template
+			ST script = templates.getInstanceOf("javascript");
+			script.add("contextPath", contextPath);
+			script.add("filename", "bootstrap-datepicker.js");
+			String datePicker = script.render();
+			
+			script.remove("filename");
+			script.add("filename", "start-date-picker-script.js");
+			String startDatePicker = script.render();
+			// end ending javascript
+			
+			page.add("script", datePicker + startDatePicker);
+			
+			// get all states from database
+			List<State> states = service.getAllStateASC();
+			String stateString = "";
+			for (State state: states){
+				String selected = "";
+				if (state.getId() == Integer.parseInt(form.getState())) selected = "selected";
+				stateString += "<option value='"+ state.getId() +"' " + selected +">" + state.getName() + "</option>";
+			}
+			
+			// get all vehicle makes from database
+			List<Make> makes = service.getAllMakeASC();
+			String makeString = "";
+			for (Make make: makes){
+				String selected = "";
+				if (make.getId() == Integer.parseInt(form.getVehicleMake())) selected = "selected";
+				makeString += "<option value='"+ make.getId() +"' " + selected + ">" + make.getName().toUpperCase() + "</option>";
+			}
+			
+			// get all vehicle models from database
+			List<Model> models = service.getAllModelASC();
+			String modelString = "";
+			for (Model model: models){
+				String selected = "";
+				if (model.getId() == Integer.parseInt(form.getVehicleModel())) selected = "selected";
+				modelString += "<option value='"+ model.getId() +"' " + selected + ">" + model.getName().toUpperCase() + "</option>";
+			}
+			
+			this.checkLogin(page, request);
+			body.add("contextPath", contextPath);
+			body.add("errorMessage", "Please correct the highlight fields!");
+			body.add("states", stateString);
+			body.add("makes", makeString);
+			body.add("models", modelString);
+			body.add("formValue", form);
+			page.add("contextPath", contextPath);
+			page.add("title", "Driver Registration");
+			page.add("body", body.render());
+		}
+			 */
+			if (!isFormValid.isEmpty()){
+				// add error message for each field
+				List<String> propertyPaths = new ArrayList<String>(); 
+				for(ConstraintViolation<RegisterUserValidation> rdv: isFormValid){
+					String propertyPath = rdv.getPropertyPath().toString();
+					
+					if (!propertyPaths.contains(propertyPath)){
+						propertyPaths.add(propertyPath);
+						body.add(propertyPath, rdv.getMessage() + " ");
+					}
+				}
+			}
+			//errorMessage = "Email is invalid.";				
 		
 			// add javascript to template
 			ST script = templates.getInstanceOf("javascript");
