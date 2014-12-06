@@ -18,6 +18,7 @@ import javax.validation.ValidatorFactory;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
+import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Group;
 import com.falcon.hosting.doa.State;
 import com.falcon.hosting.doa.User;
@@ -103,7 +104,7 @@ public class RegistrationServlet extends BaseServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.sendRedirect("/login");
+			response.sendRedirect("FalconTowncar/login");
 			
 		} else {
 			errorMessage = "Email is invalid.";				
@@ -150,7 +151,12 @@ public class RegistrationServlet extends BaseServlet {
 		List<Group> groups = new ArrayList<Group>();
 		groups.add(userGroup);
 		user.setGroups(groups);
+
 		service.addUser(user);
+		Customer cust = new Customer();
+		cust.setUser(user);	
+		
+		service.addCustomer(cust);
 		
 		return true;
 	}
