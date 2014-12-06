@@ -144,7 +144,5 @@ public class RegisterUserValidation {
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
-	}
-
-	
+	}	
 }
