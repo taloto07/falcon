@@ -1,5 +1,5 @@
 package com.falcon.hosting.test.validator;
 
-public class EditPageValidator {
+public class EditPageValidation {
 	
 }
