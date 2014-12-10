@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,7 +25,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="customers")
-@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
+@NamedQueries({
+	@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c"),
+	@NamedQuery(name="Customer.findById", query="SELECT c FROM Customer c WHERE c.id = :id")
+})
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 

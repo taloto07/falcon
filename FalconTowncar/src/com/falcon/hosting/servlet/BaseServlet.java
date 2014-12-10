@@ -24,6 +24,7 @@ public class BaseServlet extends HttpServlet {
 	
     public BaseServlet() {
         super();
+        
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}

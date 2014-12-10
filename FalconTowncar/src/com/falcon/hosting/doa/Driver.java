@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name="drivers")
 @NamedQueries({
 	@NamedQuery(name="Driver.findAll", query="SELECT d FROM Driver d"),
+	@NamedQuery(name="Driver.findById", query="SELECT d FROM Driver d WHERE d.id = :id"),
 	@NamedQuery(name="Driver.findVehicleCapacityGreaterThanOrEqual", query="SELECT d FROM Driver d WHERE d.currentVehicle.capacity >= :capacity")
 })
 

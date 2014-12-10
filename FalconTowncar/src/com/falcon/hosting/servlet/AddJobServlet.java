@@ -2,8 +2,10 @@ package com.falcon.hosting.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +26,9 @@ import com.falcon.hosting.doa.City;
 import com.falcon.hosting.doa.Customer;
 import com.falcon.hosting.doa.Driver;
 import com.falcon.hosting.doa.House;
+import com.falcon.hosting.doa.Job;
 import com.falcon.hosting.doa.State;
+import com.falcon.hosting.doa.Street;
 import com.falcon.hosting.doa.User;
 import com.falcon.hosting.doa.Zipcode;
 import com.falcon.hosting.test.validator.JobValidation;
@@ -269,7 +273,12 @@ public class AddJobServlet extends BaseServlet {
 			page.add("script", datePicker + startDatePicker);
 			// end adding javascript
 			
-			addJobToDatabase(jobValidation);
+			try {
+				addJobToDatabase(jobValidation);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		// page
@@ -283,15 +292,65 @@ public class AddJobServlet extends BaseServlet {
 		out.flush();
 	}
 	
-	private boolean addJobToDatabase(JobValidation job){
+	private boolean addJobToDatabase(JobValidation job) throws ParseException{
+		
+		Address sourceAddress = addSourceAddress(job);
+		Address destAddress = addDestinationAddress(job);
+		
+		Customer customer = service.getCustomerById(Integer.parseInt(job.getCustomerId()));
+		Driver driver = service.getDriverById(Integer.parseInt(job.getDriverId()));
+		
+		SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+		Date d = df.parse(job.getJobDate());
+		
+		Job addedJob = new Job();
+		addedJob.setCustomer(customer);
+		addedJob.setDriver(driver);
+		addedJob.setSourceAddress(sourceAddress);
+		addedJob.setDestinationAddress(destAddress);
+		addedJob.setDate(d);
+		
+		service.addJob(addedJob);
+		
+		System.out.println("Source Address Id: " + sourceAddress.getId());
+		System.out.println("dest Address Id: " + destAddress.getId());
+		System.out.println("Customer Id: " + customer.getId());
+		System.out.println("Driver Id: " + driver.getId());
+		System.out.println("Job Date: " + d);
+		System.out.println("Job Id: " + addedJob.getId());
+		
+		
+		return true;
+	}
+	
+	
+	// add source address to database
+	private Address addSourceAddress(JobValidation job){
+		// get address
 		String sourceAddress = job.getSourceAddress();
 		
+		// find house number and street name from address
 		int indexOfFirstSpace = sourceAddress.indexOf(' ');
-		String house = sourceAddress.substring(0, indexOfFirstSpace);
-		String street = sourceAddress.substring(indexOfFirstSpace + 1);
+		String houseNumber = sourceAddress.substring(0, indexOfFirstSpace);
+		String streetName = sourceAddress.substring(indexOfFirstSpace + 1);
 		
-		House shouse = service.getHouseByNumber(house);
+		// add or retrieve house
+		House house = service.getHouseByNumber(houseNumber);
+		if (house == null){
+			house = new House();
+			house.setNumber(houseNumber);
+			service.addHouse(house);
+		}
 		
+		// add or retrieve street
+		Street street = service.getStreetByName(streetName);
+		if (street == null){
+			street = new Street();
+			street.setName(streetName);
+			service.addStreet(street);
+		}
+		
+		// add or retrieve city
 		City city = service.getCityByName(job.getSourceCity());
 		if (city == null){
 			city = new City();
@@ -299,6 +358,7 @@ public class AddJobServlet extends BaseServlet {
 			service.addCity(city);
 		}
 		
+		// add or retrieve zipcode
 		Zipcode zipcode = service.getZipcodeByZipcdoe(Integer.parseInt(job.getSourceZipcode()));
 		if (zipcode == null){
 			zipcode = new Zipcode();
@@ -306,15 +366,104 @@ public class AddJobServlet extends BaseServlet {
 			service.addZipcode(zipcode);
 		}
 		
+		// check if address already exist in database
+		List<Address> addresses = service.getAllAddress();
+		Address address = null;
+		for (Address a: addresses){
+			if (a.getHouse().getNumber().equalsIgnoreCase(house.getNumber()) &&
+				a.getStreet().getName().equalsIgnoreCase(street.getName()) && 
+				a.getCity().getName().equalsIgnoreCase(city.getName()) &&
+				a.getState().getId() == Integer.parseInt(job.getSourceStateId())){
+				
+				address = a;
+			}
+		}
 		
+		// add address to database if it's not existed yet
+		if(address == null){
+			address = new Address();
+			address.setHouse(house);
+			address.setStreet(street);
+			address.setCity(city);
+			address.setState(service.getStateById(Integer.parseInt(job.getSourceStateId())));
+			address.setCountry(service.getCountryByName("United States"));
+			address.setZipcode(zipcode);
+			
+			service.addAddress(address);
+		}
 		
-		
-		return true;
+		return address;
 	}
 	
-	private Address addSourceAddress(JobValidation job){
-		System.out.println("new");
-		return null;
+	// add destination to database
+	private Address addDestinationAddress(JobValidation job){
+		// get address
+		String destAddress = job.getDestAddress();
+		
+		// find house number and street name from address
+		int indexOfFirstSpace = destAddress.indexOf(' ');
+		String houseNumber = destAddress.substring(0, indexOfFirstSpace);
+		String streetName = destAddress.substring(indexOfFirstSpace + 1);
+		
+		// add or retrieve house
+		House house = service.getHouseByNumber(houseNumber);
+		if (house == null){
+			house = new House();
+			house.setNumber(houseNumber);
+			service.addHouse(house);
+		}
+		
+		// add or retrieve street
+		Street street = service.getStreetByName(streetName);
+		if (street == null){
+			street = new Street();
+			street.setName(streetName);
+			service.addStreet(street);
+		}
+		
+		// add or retrieve city
+		City city = service.getCityByName(job.getDestCity());
+		if (city == null){
+			city = new City();
+			city.setName(job.getDestCity());
+			service.addCity(city);
+		}
+		
+		// add or retrieve zipcode
+		Zipcode zipcode = service.getZipcodeByZipcdoe(Integer.parseInt(job.getDestZipcode()));
+		if (zipcode == null){
+			zipcode = new Zipcode();
+			zipcode.setZipcode(Integer.parseInt(job.getDestZipcode()));
+			service.addZipcode(zipcode);
+		}
+		
+		// check if address already exist in database
+		List<Address> addresses = service.getAllAddress();
+		Address address = null;
+		for (Address a: addresses){
+			if (a.getHouse().getNumber().equalsIgnoreCase(house.getNumber()) &&
+				a.getStreet().getName().equalsIgnoreCase(street.getName()) && 
+				a.getCity().getName().equalsIgnoreCase(city.getName()) &&
+				a.getState().getId() == Integer.parseInt(job.getDestStateId())){
+				
+				address = a;
+			}
+		}
+		
+		// add address to database if it's not existed yet
+		if(address == null){
+			address = new Address();
+			address.setHouse(house);
+			address.setStreet(street);
+			address.setCity(city);
+			address.setState(service.getStateById(Integer.parseInt(job.getSourceStateId())));
+			address.setCountry(service.getCountryByName("United States"));
+			address.setZipcode(zipcode);
+			
+			service.addAddress(address);
+		}
+		
+		return address;
 	}
 
 }

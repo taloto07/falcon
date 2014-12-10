@@ -119,11 +119,21 @@ public class FalconService {
 		return entityManager.get().createNamedQuery("Driver.findAll", Driver.class).getResultList();
 	}
 	
+	public Driver getDriverById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Driver.findById", Driver.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
+	}
+	
 	// get list of driver based on their current vehicle capacity >= capacity variable
 	public List<Driver> getDriverCurrentVehicleCapacityGreaterThanOrEqual(int capacity){
 		return entityManager.get().createNamedQuery("Driver.findVehicleCapacityGreaterThanOrEqual", Driver.class).setParameter("capacity", capacity)
 				.getResultList();
 	}
+	
+	
 	
 	// add driver
 	public void addDriver(Driver driver){
@@ -137,6 +147,15 @@ public class FalconService {
 	// get all customers
 	public List<Customer> getAllCustomer(){
 		return entityManager.get().createNamedQuery("Customer.findAll", Customer.class).getResultList();
+	}
+	
+	// get customer by id
+	public Customer getCustomerById(int id){
+		try{
+			return entityManager.get().createNamedQuery("Customer.findById", Customer.class).setParameter("id", id).getSingleResult();
+		}catch (NoResultException e){
+			return null;
+		}
 	}
 	
 	// add customer
@@ -459,6 +478,14 @@ public class FalconService {
 		}catch (NoResultException e){
 			return null;
 		}
+	}
+	
+	public boolean addJob(Job job){
+		entityManager.get().getTransaction().begin();
+		entityManager.get().persist(job);
+		entityManager.get().getTransaction().commit();
+		
+		return true;
 	}
 	//--------------------------------------------------End Job------------------------------------------------------------------------------------------------
 }
