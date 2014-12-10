@@ -5,7 +5,7 @@ phoneNumber, dob,confirmPassword, confirmEmail)::="
 <div class='container'>
 	<div class='jumbotron'>
 		$if(errorMessage)$
-				<div class='alert alert-danger'>$errorMessage$</div>
+				<div class='alert alert-danger'><h4>$errorMessage$</h4></div>
 		$endif$
 		
 		<form class='form-horizontal' role='form' method='post' action='$contextPath$registration'>
