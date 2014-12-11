@@ -1,6 +1,5 @@
 dashboard_owner(contextPath, errorMessage, users)::="
 <div class='container'>
-	This is Owner Dashboard page.
 	
 	$if(errorMessage)$
 		<p>$errorMessage$</p>

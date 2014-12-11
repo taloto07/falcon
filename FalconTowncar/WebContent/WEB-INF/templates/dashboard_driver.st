@@ -1,6 +1,6 @@
 dashboard_driver(contextPath, errorMessage, user, currentVehicle, otherVehicles, jobs)::="
 <div class='container'>
-	This is driver Dashboard page.
+	
 	$if(errorMessage)$
 		<div class='alert alert-danger' role='alert'>
 			<h2>$errorMessage$</h2>

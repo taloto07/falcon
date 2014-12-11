@@ -21,6 +21,13 @@ useremail, owner)::="
 
     <!-- Custom styles for this template -->
     <link href='$contextPath$css/sticky-footer-navbar.css' rel='stylesheet'>
+    
+    <!-- Custom Fonts -->
+    <link href='$contextPath$fonts/font-awesome-4.1.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src='../../assets/js/ie8-responsive-file-warning.js'></script><![endif]-->
@@ -54,20 +61,7 @@ useremail, owner)::="
           <ul class='nav navbar-nav'>
             <li class='$home$'><a href='$contextPath$'>Home</a></li>
             <li class='$about$'><a href='$contextPath$about.html'>About</a></li>
-            <li class='$contact$'><a href='$contextPath$contact.html'>Contact</a></li>            
-            <li class='$history$'><a href='$contextPath$history.html'>History</a></li>
-            <li class='dropdown'>
-              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Dropdown <span class='caret'></span></a>
-              <ul class='dropdown-menu' role='menu'>
-                <li><a href='#'>Action</a></li>
-                <li><a href='#'>Another action</a></li>
-                <li><a href='#'>Something else here</a></li>
-                <li class='divider'></li>
-                <li class='dropdown-header'>Nav header</li>
-                <li><a href='#'>Separated link</a></li>
-                <li><a href='#'>One more separated link</a></li>
-              </ul>
-            </li>
+            <li class='$contact$'><a href='$contextPath$contact.html'>Contact</a></li>
           </ul>
           <ul class='nav navbar-nav navbar-right'>
           	$if(login)$

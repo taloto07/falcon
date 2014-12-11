@@ -1,9 +1,14 @@
 contact(contextPath)::="
 <!-- Begin page content -->
+<div class='title'>
+  <div class='container'>
+    <section class='title-section'>
+      <h1 class='title-header'>Contact Us</h1>
+    </section>
+  </div>
+</div>
+
 <div class='container'>
-	<div class='page-header'>
-    	<h1>Contact Us</h1>
-  	</div>
   	<p class='lead'>
   		Falcon Towncar Transportation operates 24 hours, 7 days a week, 365 days a year.
 		Please feel free to contact us at any time. <br/><br/>

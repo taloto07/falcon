@@ -1,9 +1,14 @@
 about(contextPath)::="
 <!-- Begin page content -->
+<div class='title'>
+  <div class='container'>
+    <section class='title-section'>
+      <h1 class='title-header'>About Our Company</h1>
+    </section>
+  </div>
+</div>
+
 <div class='container'>
-	<div class='page-header'>
-    	<h1>About Us</h1>
-  	</div>
   	<p class='lead'>
   		Falcon Town Car Transportation is a unique chauffeured transportation service that operates limousines, Lincoln Town Cars, 
   		various luxury SUV's, vans and coaches, and has been serving the Greater Seattle area for the past two decades. At Seattle Falcon 

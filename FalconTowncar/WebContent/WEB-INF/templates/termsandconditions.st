@@ -1,8 +1,14 @@
 termsandconditions(contextPath)::="
+
+<div class='title'>
+  <div class='container'>
+    <section class='title-section'>
+      <h1 class='title-header'>Terms and Conditions</h1>
+    </section>
+  </div>
+</div>
+
 <div class='container'>
-	
-    <h1>Terms and Conditions</h1>
-  	
   	<div class='page-header'>
   		<h3>General</h3>
   	</div>

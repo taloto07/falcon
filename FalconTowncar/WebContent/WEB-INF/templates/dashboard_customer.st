@@ -1,6 +1,6 @@
 dashboard_customer(contextPath, errorMessage, user, jobs)::="
 <div class='container'>
-	This is customer Dashboard page.
+	
 	$if(errorMessage)$
 		<p>$errorMessage$</p>
 	$else$
